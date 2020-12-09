@@ -1,5 +1,5 @@
 ---
-#title: "Impact of Nasopharyngeal Specimen Quality of SARS-CoV-2 Test Sensitivity"
+#title: "Impact of Nasopharyngeal Specimen Quality of SARS-CoV-2 Test Performance"
 #author: "Brendan J. Kelly, MD, MS"
 bibliography: bib/references.bib
 csl: csl/journal-of-clinical-microbiology.csl
@@ -19,7 +19,7 @@ library(tidybayes)
   
   
 ## Title  
-Impact of Nasopharyngeal Specimen Quality on SARS-CoV-2 Test Sensitivity  
+Impact of Nasopharyngeal Specimen Quality on SARS-CoV-2 Test Performance  
   
 ## Abbreviated Title  
 Specimen Quality and SARS-CoV-2 Ct  
@@ -112,7 +112,7 @@ To measure variability in the quality of NP swab collection, we performed amplif
   
 * __Power and Sample Size__: We estimated the necessary cohort size based on the anticipated effect of poor NP swab quantity [@Rothman2018-jg]. We anticipated that approximately 800 subjects would detect a 10% reduction in sensitivity of SARS-CoV-2 detection related to a β-actin Ct increase of 10, with credible intervals precision ensuring type S error < 5% [@Gelman2000-ih; @Gelman2014-wn]. We targeted enrollment of 10% more subjects to allow for a margin of error in that estimate, and we exceeded our enrollment target.  
   
-* __Availability of Data__: Data, analysis scripts, and model code are available at github.com/bjklab.  
+* __Availability of Data__: Data, analysis scripts, and model code are available at https://github.com/bjklab/Impact-of-NP-Specimen-Quality-on-SARS-CoV-2-Test-Performance.  
   
   
 -----  

@@ -461,7 +461,7 @@ summary {
 
 <div id="title" class="section level2">
 <h2>Title</h2>
-<p>Impact of Nasopharyngeal Specimen Quality on SARS-CoV-2 Test Sensitivity</p>
+<p>Impact of Nasopharyngeal Specimen Quality on SARS-CoV-2 Test Performance</p>
 </div>
 <div id="abbreviated-title" class="section level2">
 <h2>Abbreviated Title</h2>
@@ -545,7 +545,7 @@ BJK - study design, data analysis, manuscript</p>
 <li><p><strong>Definition of Exposures and Outcomes</strong>: The primary exposure of interest was the β-actin Ct value, a surrogate for the quality of NP swab collection. The primary outcome of interest was SARS-CoV-2 Ct value.</p></li>
 <li><p><strong>Statistical Methods</strong>: Data were organized using R statistical software version 3.6.1 <span class="citation">(19)</span>, and plots generated using the “ggplot2” package <span class="citation">(20)</span>. Where β-actin and SARS-CoV-2 were not detected, Ct values were imputed as 40 cycles. We examined (1) the linear relationship between β-actin and SARS-CoV-2 Ct values, as well as (2) the impact of β-actin Ct on SARS-CoV-2 detection using Bayesian linear and generalized-linear mixed effects models, which were fit using Stan Hamiltonian Monte Carlo (HMC) version 2.21, via the “brms” package with default weakly-informative priors <span class="citation">(21, 22)</span>. Prior predictive modeling was performed, and models were fit with 4 chains of 1000 iterations, confirmed with HMC diagnostics (no divergent iterations, Rhat statistic &lt; 1.1 for all parameters, and E-BFMI &gt; 0.2) <span class="citation">(23–25)</span>. We examined parameter distributions at 50%, 80%, and 95% posterior credible intervals to understand the relationship between exposure and outcome variables.</p></li>
 <li><p><strong>Power and Sample Size</strong>: We estimated the necessary cohort size based on the anticipated effect of poor NP swab quantity <span class="citation">(26)</span>. We anticipated that approximately 800 subjects would detect a 10% reduction in sensitivity of SARS-CoV-2 detection related to a β-actin Ct increase of 10, with credible intervals precision ensuring type S error &lt; 5% <span class="citation">(27, 28)</span>. We targeted enrollment of 10% more subjects to allow for a margin of error in that estimate, and we exceeded our enrollment target.</p></li>
-<li><p><strong>Availability of Data</strong>: Data, analysis scripts, and model code are available at github.com/bjklab.</p></li>
+<li><p><strong>Availability of Data</strong>: Data, analysis scripts, and model code are available at <a href="https://github.com/bjklab/Impact-of-NP-Specimen-Quality-on-SARS-CoV-2-Test-Performance" class="uri">https://github.com/bjklab/Impact-of-NP-Specimen-Quality-on-SARS-CoV-2-Test-Performance</a>.</p></li>
 </ul>
 <hr />
 <div style="page-break-after: always;"></div>
