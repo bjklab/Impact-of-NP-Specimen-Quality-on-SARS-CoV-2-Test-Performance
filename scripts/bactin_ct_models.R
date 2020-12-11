@@ -110,7 +110,7 @@ bd_impute %>%
 p_rtpcr
 
 # p_rtpcr %>%
-#   ggsave(filename = "./figs/p_rtpcr_analyte_comparison.pdf", height = 4, width = 5, units = "in")
+#   ggsave(filename = "./figs/p_rtpcr_analyte_comparison.pdf", height = 4, width = 5, units = "in", device = cairo_pdf)
 # p_rtpcr %>%
 #   ggsave(filename = "./figs/p_rtpcr_analyte_comparison.svg", height = 4, width = 5, units = "in")
 # p_rtpcr %>%
