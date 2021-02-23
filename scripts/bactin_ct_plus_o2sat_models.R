@@ -21,6 +21,12 @@ set.seed(16)
 bd_dat <- read_csv("./data/np_ct_plus_chest_ct_o2.csv")
 bd_dat
 
+bd_dat %>%
+  # filter to MS2 target range
+  filter(ms2_ct >= 20 & ms2_ct <= 25) %>%
+  identity() -> bd_dat
+bd_dat
+
 
 bd_dat %>%
   gt::gt_preview()
@@ -37,15 +43,21 @@ bd_dat %>%
   summarise(`Number of Specimens` = n(),
             ms2_med = signif(median(ms2_ct, na.rm = TRUE),2),
             ms2_iqr = signif(IQR(ms2_ct, na.rm = TRUE),2),
+            ms2_q1 = signif(quantile(ms2_ct, probs = c(0.25), na.rm = TRUE), 2),
+            ms2_q3 = signif(quantile(ms2_ct, probs = c(0.75), na.rm = TRUE), 2),
             bactin_med = signif(median(bactin_ct, na.rm = TRUE),2),
             bactin_iqr = signif(IQR(bactin_ct, na.rm = TRUE),2),
+            bactin_q1 = signif(quantile(bactin_ct, probs = c(0.25), na.rm = TRUE), 2),
+            bactin_q3 = signif(quantile(bactin_ct, probs = c(0.75), na.rm = TRUE), 2),
             sarscov2_med = signif(median(sarscov2_ct, na.rm = TRUE),2),
             sarscov2_iqr = signif(IQR(sarscov2_ct, na.rm = TRUE),2),
-            ms2_sum = glue::glue("{ms2_med} ({ms2_iqr})"),
-            bactin_sum = glue::glue("{bactin_med} ({bactin_iqr})"),
-            sarscov2_sum = glue::glue("{sarscov2_med} ({sarscov2_iqr})")) %>%
+            sarscov2_q1 = signif(quantile(sarscov2_ct, probs = c(0.25), na.rm = TRUE), 2),
+            sarscov2_q3 = signif(quantile(sarscov2_ct, probs = c(0.75), na.rm = TRUE), 2),
+            ms2_sum = glue::glue("{ms2_med} ({ms2_q1} - {ms2_q3})"),
+            bactin_sum = glue::glue("{bactin_med} ({bactin_q1} - {bactin_q3})"),
+            sarscov2_sum = glue::glue("{sarscov2_med} ({sarscov2_q1} - {sarscov2_q3})")) %>%
   rename(`MS2 Ct` = ms2_sum, `Beta-actin Ct` = bactin_sum, `SARS-CoV-2 Ct` = sarscov2_sum) %>%
-  select(-contains("med"),-contains("iqr")) -> bd_dat_summary
+  select(-contains("med"),-contains("iqr"), -contains("q1"), -contains("q3")) -> bd_dat_summary
 bd_dat_summary
 
 
@@ -72,72 +84,23 @@ bd_impute %>%
   gt::gt_preview()
 
 
-
 bd_impute %>%
-  summarise(`Number of Specimens` = n(),
-            ms2_med = signif(median(ms2_ct, na.rm = TRUE),2),
-            ms2_iqr = signif(IQR(ms2_ct, na.rm = TRUE),2),
-            bactin_med = signif(median(bactin_ct, na.rm = TRUE),2),
-            bactin_iqr = signif(IQR(bactin_ct, na.rm = TRUE),2),
-            sarscov2_med = signif(median(sarscov2_ct, na.rm = TRUE),2),
-            sarscov2_iqr = signif(IQR(sarscov2_ct, na.rm = TRUE),2),
-            ms2_sum = glue::glue("{ms2_med} ({ms2_iqr})"),
-            bactin_sum = glue::glue("{bactin_med} ({bactin_iqr})"),
-            sarscov2_sum = glue::glue("{sarscov2_med} ({sarscov2_iqr})")) %>%
-  rename(`MS2 Ct` = ms2_sum, `Beta-actin Ct` = bactin_sum, `SARS-CoV-2 Ct` = sarscov2_sum) %>%
-  select(-contains("med"),-contains("iqr")) -> bd_impute_summary
-bd_impute_summary
-
-
-bd_dat_summary %>%
-  bind_rows(bd_impute_summary) %>%
-  gt::gt()
-
-
-
-#' plot comparison of PCR analytes
-bd_impute %>%
-  dplyr::rename(`MS2 Ct` = ms2_ct, `β-actin Ct` = bactin_ct, `SARS-CoV-2 Ct` = sarscov2_ct) %>%
-  ggplot(data = ., aes(x = .panel_x, y = .panel_y)) + 
-  geom_point(alpha = 0.8, shape = 21, size = 0.5) + 
-  geom_autodensity() +
-  facet_matrix(vars(`MS2 Ct`, `β-actin Ct`, `SARS-CoV-2 Ct`), layer.diag = 2) +
-  theme_bw() +
-  theme(strip.background = element_blank(),
-        strip.text.x = ggtext::element_markdown(color = "black"),
-        axis.text.x = ggtext::element_markdown(color = "black"),
-        axis.text.y = ggtext::element_markdown(color = "black")) -> p_rtpcr
-p_rtpcr
-
-# p_rtpcr %>%
-#   ggsave(filename = "./figs/p_rtpcr_analyte_comparison.pdf", height = 4, width = 5, units = "in")
-# p_rtpcr %>%
-#   ggsave(filename = "./figs/p_rtpcr_analyte_comparison.svg", height = 4, width = 5, units = "in")
-# p_rtpcr %>%
-#   ggsave(filename = "./figs/p_rtpcr_analyte_comparison.png", height = 4, width = 5, units = "in", dpi = 600)
-
-
+  mutate(o2_below_94 = o2_sat < 0.94) %>%
+  mutate(covid_positive = as.numeric(grepl("POS",result))) %>%
+  select(covid_positive, chest_ct_infiltrates, contains("o2"), ms2_ct, bactin_ct, sarscov2_ct) %>%
+  mutate_at(.vars = vars(-covid_positive, -chest_ct_infiltrates, -o2_below_94), .funs = list("flip" = ~ -log(.x)),) %>%
+  mutate_at(.vars = vars(-covid_positive, -chest_ct_infiltrates, -o2_below_94, -contains("flip")), .funs = list("scale" = ~ scale(.x)[,1])) %>%
+  count(chest_ct_infiltrates)
 
 
 bd_impute %>%
-  select(ms2_ct, bactin_ct, sarscov2_ct) %>%
-  summarise(`Number of Specimens` = n(),
-            ms2_med = signif(median(ms2_ct, na.rm = TRUE),2),
-            ms2_iqr = signif(IQR(ms2_ct, na.rm = TRUE),2),
-            bactin_med = signif(median(bactin_ct, na.rm = TRUE),2),
-            bactin_iqr = signif(IQR(bactin_ct, na.rm = TRUE),2),
-            sarscov2_med = signif(median(sarscov2_ct, na.rm = TRUE),2),
-            sarscov2_iqr = signif(IQR(sarscov2_ct, na.rm = TRUE),2),
-            ms2_sum = glue::glue("{ms2_med} ({ms2_iqr})"),
-            bactin_sum = glue::glue("{bactin_med} ({bactin_iqr})"),
-            sarscov2_sum = glue::glue("{sarscov2_med} ({sarscov2_iqr})")) %>%
-  rename(`MS2 Ct` = ms2_sum, `Beta-actin Ct` = bactin_sum, `SARS-CoV-2 Ct` = sarscov2_sum) %>%
-  select(-contains("med"),-contains("iqr")) -> bd_impute_summary
-bd_impute_summary
+  mutate(o2_below_94 = o2_sat < 0.94) %>%
+  mutate(covid_positive = as.numeric(grepl("POS",result))) %>%
+  select(covid_positive, chest_ct_infiltrates, contains("o2"), ms2_ct, bactin_ct, sarscov2_ct) %>%
+  mutate_at(.vars = vars(-covid_positive, -chest_ct_infiltrates, -o2_below_94), .funs = list("flip" = ~ -log(.x)),) %>%
+  mutate_at(.vars = vars(-covid_positive, -chest_ct_infiltrates, -o2_below_94, -contains("flip")), .funs = list("scale" = ~ scale(.x)[,1])) %>%
+  count(o2_below_94)
 
-
-bd_impute_summary %>%
-  gt::gt()
 
 
 #' #############################################
@@ -281,33 +244,34 @@ bd_impute %>%
   count(covid_positive, o2_below_94)
 
 
-#' #' brms
-#' bd_impute %>%
-#'   mutate(o2_below_94 = o2_sat < 0.94) %>%
-#'   mutate(covid_positive = as.numeric(grepl("POS",result))) %>%
-#'   select(covid_positive, chest_ct_infiltrates, contains("o2"), ms2_ct, bactin_ct, sarscov2_ct) %>%
-#'   mutate_at(.vars = vars(-covid_positive, -chest_ct_infiltrates), .funs = list("flip" = ~ -log(.x)),) %>%
-#'   mutate_at(.vars = vars(-covid_positive, -chest_ct_infiltrates, -contains("flip")), .funs = list("scale" = ~ scale(.x)[,1])) %>%
-#'   mutate(chest_ct_infiltrates = ifelse(is.na(chest_ct_infiltrates), "Unknown", ifelse(chest_ct_infiltrates == TRUE, "Present", "Absent"))) %>%
-#'   mutate(o2_below_94 = ifelse(is.na(o2_below_94), "O2 Not Measured",
-#'                               ifelse(o2_below_94 == TRUE, "O2 Saturation < 94%", "O2 Saturation \u2265 94%"))) %>%
-#'   #filter(!is.na(o2_below_94)) %>%
-#'   brm(data = ., family = bernoulli,
-#'       covid_positive ~ (bactin_ct_scale + 1 | o2_below_94),
-#'       # prior = c(prior(student_t(3, 0, 2.5), class = Intercept),
-#'       #            prior(student_t(3, 0, 2.5), class = b)
-#'       # ),
-#'       iter = 2000,
-#'       warmup = 1000,
-#'       chains = 4,
-#'       cores = 4,
-#'       control = list("adapt_delta" = 0.9999, max_treedepth = 22),
-#'       backend = "cmdstanr",
-#'       seed = 16) -> m_logit_scale_o2sat_brms
-#' 
-#' 
-#' m_logit_scale_o2sat_brms %>% write_rds(file = "./models/binomial/m_logit_scale_o2sat_brms.rds.gz", compress = "gz")
-#' m_logit_scale_o2sat_brms$fit %>% write_rds(file = "./models/binomial/m_logit_scale_o2sat_brms_stanfit.rds.gz", compress = "gz")
+#' brms
+bd_impute %>%
+  mutate(o2_below_94 = o2_sat < 0.94) %>%
+  mutate(covid_positive = as.numeric(grepl("POS",result))) %>%
+  select(covid_positive, chest_ct_infiltrates, contains("o2"), ms2_ct, bactin_ct, sarscov2_ct) %>%
+  mutate_at(.vars = vars(-covid_positive, -chest_ct_infiltrates), .funs = list("flip" = ~ -log(.x)),) %>%
+  mutate_at(.vars = vars(-covid_positive, -chest_ct_infiltrates, -contains("flip")), .funs = list("scale" = ~ scale(.x)[,1])) %>%
+  mutate(chest_ct_infiltrates = ifelse(is.na(chest_ct_infiltrates), "Unknown", ifelse(chest_ct_infiltrates == TRUE, "Present", "Absent"))) %>%
+  mutate(o2_below_94 = ifelse(is.na(o2_below_94), "O2 Not Measured",
+                              ifelse(o2_below_94 == TRUE, "O2 Saturation < 94%", "O2 Saturation \u2265 94%"))) %>%
+  #filter(!is.na(o2_below_94)) %>%
+  brm(data = ., family = bernoulli,
+      covid_positive ~ (bactin_ct_scale + 1 | o2_below_94),
+      prior = c(prior(normal(0, 0.5), class = Intercept),
+                prior(normal(0, 0.5), class = sd),
+                prior(lkj(1), class = cor)
+      ),
+      iter = 2000,
+      warmup = 1000,
+      chains = 4,
+      cores = 4,
+      control = list("adapt_delta" = 0.9999, max_treedepth = 22),
+      backend = "cmdstanr",
+      seed = 16) -> m_logit_scale_o2sat_brms
+
+
+m_logit_scale_o2sat_brms %>% write_rds(file = "./models/binomial/m_logit_scale_o2sat_brms.rds.gz", compress = "gz")
+m_logit_scale_o2sat_brms$fit %>% write_rds(file = "./models/binomial/m_logit_scale_o2sat_brms_stanfit.rds.gz", compress = "gz")
 m_logit_scale_o2sat_brms <- read_rds(file = "./models/binomial/m_logit_scale_o2sat_brms.rds.gz")
 
 m_logit_scale_o2sat_brms$formula
@@ -343,9 +307,9 @@ m_logit_scale_o2sat_brms$data %>%
          o2_below_94 = unique(o2_below_94)) %>% 
   tidybayes::add_fitted_draws(model = m_logit_scale_o2sat_brms) %>%
   mutate(bactin_ct = bactin_ct_scale * sd(bd_impute$bactin_ct) + mean(bd_impute$bactin_ct)) %>%
-  mutate(o2_cat_number = case_when(o2_below_94 == "O2 Saturation < 94%" ~ 94,
-                                   o2_below_94 == "O2 Saturation \u2265 94%" ~ 335,
-                                   o2_below_94 == "O2 Not Measured" ~ 883,
+  mutate(o2_cat_number = case_when(o2_below_94 == "O2 Saturation < 94%" ~ 93,
+                                   o2_below_94 == "O2 Saturation \u2265 94%" ~ 332,
+                                   o2_below_94 == "O2 Not Measured" ~ 857,
                                    ),
          o2_below_94 = glue::glue("{o2_below_94} (n={o2_cat_number})")
          ) %>%
@@ -395,33 +359,33 @@ p_logit_scale_o2sat_brms
 #' 
 #' #############################################
 
-#' #' brms
-#' bd_impute %>%
-#'   mutate(o2_below_94 = o2_sat < 0.94) %>%
-#'   mutate(covid_positive = as.numeric(grepl("POS",result))) %>%
-#'   select(covid_positive, contains("o2"), chest_ct_infiltrates, ms2_ct, bactin_ct, sarscov2_ct) %>%
-#'   mutate_at(.vars = vars(-covid_positive, -chest_ct_infiltrates, -contains("o2")), .funs = list("flip" = ~ -log(.x)),) %>%
-#'   mutate_at(.vars = vars(-covid_positive, -chest_ct_infiltrates, -contains("o2"), -contains("flip")), .funs = list("scale" = ~ scale(.x)[,1])) %>%
-#'   mutate(chest_ct_infiltrates = ifelse(is.na(chest_ct_infiltrates), "Unknown", ifelse(chest_ct_infiltrates == TRUE, "Present", "Absent"))) %>%
-#'   #filter(chest_ct_infiltrates != "Unknown") %>%
-#'   mutate(chest_ct_infiltrates = chest_ct_infiltrates == "Present") %>%
-#'   filter(!is.na(o2_below_94)) %>%
-#'   brm(data = ., family = bernoulli,
-#'       covid_positive ~ (1 + bactin_ct_scale + o2_below_94),
-#'       # prior = c(prior(student_t(3, 0, 2.5), class = Intercept),
-#'       #           prior(student_t(3, 0, 2.5), class = b)
-#'       # ),
-#'       iter = 2000,
-#'       warmup = 1000,
-#'       chains = 4,
-#'       cores = 4,
-#'       control = list("adapt_delta" = 0.999, max_treedepth = 22),
-#'       backend = "cmdstanr",
-#'       seed = 16) -> m_logit_scale_o2sat_adjust_brms
-#' 
-#' 
-#' m_logit_scale_o2sat_adjust_brms %>% write_rds(file = "./models/binomial/m_logit_scale_o2sat_adjust_brms.rds.gz", compress = "gz")
-#' m_logit_scale_o2sat_adjust_brms$fit %>% write_rds(file = "./models/binomial/m_logit_scale_o2sat_adjust_brms_stanfit.rds.gz", compress = "gz")
+#' brms
+bd_impute %>%
+  mutate(o2_below_94 = o2_sat < 0.94) %>%
+  mutate(covid_positive = as.numeric(grepl("POS",result))) %>%
+  select(covid_positive, contains("o2"), chest_ct_infiltrates, ms2_ct, bactin_ct, sarscov2_ct) %>%
+  mutate_at(.vars = vars(-covid_positive, -chest_ct_infiltrates, -contains("o2")), .funs = list("flip" = ~ -log(.x)),) %>%
+  mutate_at(.vars = vars(-covid_positive, -chest_ct_infiltrates, -contains("o2"), -contains("flip")), .funs = list("scale" = ~ scale(.x)[,1])) %>%
+  mutate(chest_ct_infiltrates = ifelse(is.na(chest_ct_infiltrates), "Unknown", ifelse(chest_ct_infiltrates == TRUE, "Present", "Absent"))) %>%
+  #filter(chest_ct_infiltrates != "Unknown") %>%
+  mutate(chest_ct_infiltrates = chest_ct_infiltrates == "Present") %>%
+  filter(!is.na(o2_below_94)) %>%
+  brm(data = ., family = bernoulli,
+      covid_positive ~ (1 + bactin_ct_scale + o2_below_94),
+      # prior = c(prior(student_t(3, 0, 2.5), class = Intercept),
+      #           prior(student_t(3, 0, 2.5), class = b)
+      # ),
+      iter = 2000,
+      warmup = 1000,
+      chains = 4,
+      cores = 4,
+      control = list("adapt_delta" = 0.999, max_treedepth = 22),
+      backend = "cmdstanr",
+      seed = 16) -> m_logit_scale_o2sat_adjust_brms
+
+
+m_logit_scale_o2sat_adjust_brms %>% write_rds(file = "./models/binomial/m_logit_scale_o2sat_adjust_brms.rds.gz", compress = "gz")
+m_logit_scale_o2sat_adjust_brms$fit %>% write_rds(file = "./models/binomial/m_logit_scale_o2sat_adjust_brms_stanfit.rds.gz", compress = "gz")
 m_logit_scale_o2sat_adjust_brms <- read_rds(file = "./models/binomial/m_logit_scale_o2sat_adjust_brms.rds.gz")
 
 m_logit_scale_o2sat_adjust_brms$formula
@@ -515,7 +479,7 @@ p_logit_scale_o2sat_adjust_brms
 library(patchwork)
 
 (p_logit_scale_radiology_brms + theme(legend.position = "none")) /
-  (p_logit_scale_o2sat_brms + theme(legend.position = c(0.93,0.69))) +
+  (p_logit_scale_o2sat_brms + theme(legend.position = c(0.22,0.69))) +
   plot_annotation(tag_levels = "A") -> p_logit_scale_ct_o2_brms
 p_logit_scale_ct_o2_brms
 
@@ -540,28 +504,28 @@ p_logit_scale_ct_o2_brms
 #' #############################################
 
 #' #' brms
-#' bd_dat %>%
-#'   select(bactin_ct, sarscov2_ct, o2_sat) %>%
-#'   mutate_all(.funs = list("scale" = ~ scale(.x)[,1])) %>%
-#'   mutate(o2_below_94 = o2_sat < 0.94) %>%
-#'   mutate(o2_below_94 = ifelse(is.na(o2_below_94), "O2 Not Measured",
-#'                               ifelse(o2_below_94 == TRUE, "O2 Saturation < 94%", "O2 Saturation \u2265 94%"))) %>%
-#'   brm(data = ., family = gaussian,
-#'       sarscov2_ct ~ 1 + bactin_ct_scale + o2_sat_scale,
-#'       #prior = c(prior(student_t(3,-4, 2.5), class = Intercept),
-#'       #          prior(student_t(3,0, 2.5), class = b)
-#'       #),
-#'       iter = 2000,
-#'       warmup = 1000,
-#'       chains = 4,
-#'       cores = 4,
-#'       control = list("adapt_delta" = 0.99, max_treedepth = 16),
-#'       backend = "cmdstanr",
-#'       seed = 16) -> m_lin_raw_o2_brms
-#' 
-#' 
-#' m_lin_raw_o2_brms %>% write_rds(file = "./models/binomial/m_lin_raw_o2_brms.rds.gz", compress = "gz")
-#' m_lin_raw_o2_brms$fit %>% write_rds(file = "./models/binomial/m_lin_raw_o2_brms_stanfit.rds.gz", compress = "gz")
+bd_dat %>%
+  select(bactin_ct, sarscov2_ct, o2_sat) %>%
+  mutate_all(.funs = list("scale" = ~ scale(.x)[,1])) %>%
+  mutate(o2_below_94 = o2_sat < 0.94) %>%
+  mutate(o2_below_94 = ifelse(is.na(o2_below_94), "O2 Not Measured",
+                              ifelse(o2_below_94 == TRUE, "O2 Saturation < 94%", "O2 Saturation \u2265 94%"))) %>%
+  brm(data = ., family = gaussian,
+      sarscov2_ct ~ 1 + bactin_ct_scale + o2_sat_scale,
+      #prior = c(prior(student_t(3,-4, 2.5), class = Intercept),
+      #          prior(student_t(3,0, 2.5), class = b)
+      #),
+      iter = 2000,
+      warmup = 1000,
+      chains = 4,
+      cores = 4,
+      control = list("adapt_delta" = 0.99, max_treedepth = 16),
+      backend = "cmdstanr",
+      seed = 16) -> m_lin_raw_o2_brms
+
+
+m_lin_raw_o2_brms %>% write_rds(file = "./models/binomial/m_lin_raw_o2_brms.rds.gz", compress = "gz")
+m_lin_raw_o2_brms$fit %>% write_rds(file = "./models/binomial/m_lin_raw_o2_brms_stanfit.rds.gz", compress = "gz")
 m_lin_raw_o2_brms <- read_rds(file = "./models/binomial/m_lin_raw_o2_brms.rds.gz")
 
 m_lin_raw_o2_brms$formula
