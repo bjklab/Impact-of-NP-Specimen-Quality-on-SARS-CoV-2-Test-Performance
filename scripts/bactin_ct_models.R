@@ -134,6 +134,7 @@ p_rtpcr
 #   ggsave(filename = "./figs/p_rtpcr_analyte_comparison.png", height = 4, width = 5, units = "in", dpi = 600)
 
 
+#
 bd_impute %>%
   dplyr::rename(`MS2 Ct` = ms2_ct, `β-actin Ct` = bactin_ct, `SARS-CoV-2 Ct` = sarscov2_ct) %>%
   ggplot(data = ., aes(x = `β-actin Ct`, y =`SARS-CoV-2 Ct`)) + 
@@ -145,7 +146,6 @@ bd_impute %>%
         axis.text.x = ggtext::element_markdown(color = "black"),
         axis.text.y = ggtext::element_markdown(color = "black")) -> p_rtpcr2
 p_rtpcr2
-
 
 
 
@@ -168,6 +168,103 @@ bd_impute_summary
 
 bd_impute_summary %>%
   gt::gt()
+
+
+
+
+
+
+#' #############################################
+#' 
+#' requested revisions to the original figure 1
+#' 
+#' #############################################
+
+#' plot comparison of PCR analytes with caption
+bd_impute %>%
+  dplyr::rename(`MS2 Ct` = ms2_ct, `β-actin Ct` = bactin_ct, `SARS-CoV-2 Ct` = sarscov2_ct) %>%
+  ggplot(data = ., aes(x = .panel_x, y = .panel_y)) + 
+  geom_point(alpha = 0.8, shape = 21, size = 0.5) + 
+  geom_autodensity() +
+  facet_matrix(vars(`MS2 Ct`, `β-actin Ct`, `SARS-CoV-2 Ct`), layer.diag = 2) +
+  theme_bw() +
+  theme(plot.title = ggtext::element_textbox_simple(size = 10, lineheight = 1, padding = margin(5.5, 5.5, 5.5, 5.5), margin = margin(0, 0, 5.5, 0), fill = "white"),
+        plot.caption = ggtext::element_textbox_simple(size = 8, lineheight = 1, padding = margin(5.5, 5.5, 5.5, 5.5), margin = margin(0, 0, 5.5, 0), fill = "white"),
+        strip.background = element_blank(),
+        #strip.text = ggtext::element_markdown(color = "black"),
+        #strip.text.x = ggtext::element_markdown(color = "black"),
+        axis.text.x = ggtext::element_markdown(color = "black"),
+        axis.text.y = ggtext::element_markdown(color = "black")) +
+  labs(title = "Distribution and relationships of Ct values for SARS-CoV-2 and β-actin specimen quality control.",
+       caption = "A matrix plot depicting the observed cycle threshold values for SARS-CoV-2 RT-PCR, with MS2 RNA positive control and β-actin specimen quality control over 1282 consecutive clinical assays run between March 26 and July 4, 2020. Panels on the diagonal present the distribution of each target's Ct values. Panels off the diagonal present the relationship between Ct values for each pair of targets. Ct for specimens without detectable SARS-CoV-2 or β-actin were imputed at 40 cycles.") -> p_rtpcr_cap
+p_rtpcr_cap
+
+# p_rtpcr_cap %>%
+#   ggsave(filename = "./figs/p_rtpcr_analyte_comparison_cap.pdf", height = 8, width = 6, units = "in", device = cairo_pdf)
+# p_rtpcr_cap %>%
+#   ggsave(filename = "./figs/p_rtpcr_analyte_comparison_cap.svg", height = 8, width = 6, units = "in")
+# p_rtpcr_cap %>%
+#   ggsave(filename = "./figs/p_rtpcr_analyte_comparison_cap.png", height = 8, width = 6, units = "in", dpi = 600)
+
+
+
+
+#' revised Ct comparison plot
+
+bd_dat %>%
+  filter(!is.na(bactin_ct)) %>%
+  qplot(data = ., x = bactin_ct, y = sarscov2_ct, geom = c("point","smooth"), method = "lm")
+
+bd_dat %>%
+  filter(!is.na(bactin_ct)) %>%
+  mutate(bactin_category = case_when(bactin_ct <= 25 ~ "Low",
+                                     bactin_ct > 25 & bactin_ct < 35 ~ "Medium",
+                                     bactin_ct >= 35 ~ "High")) %>%
+  mutate(bactin_category = factor(bactin_category, levels = c("Low", "Medium", "High"))) %>%
+  qplot(data = ., x = bactin_category, y = sarscov2_ct, geom = "boxplot")
+
+
+
+#' Ct comparison table
+
+bd_dat %>%
+  select(workup_accession, contains("ct")) %>%
+  select(-contains("chest")) %>%
+  pivot_longer(cols = contains("ct"), names_to = "amplicon", values_to = "ct") %>%
+  group_by(amplicon) %>%
+  summarise(n_ct_in_range = sum(!is.na(ct)),
+            n_no_ct = sum(is.na(ct)),
+            prop_ct_in_range = sum(!is.na(ct)) / n_distinct(workup_accession),
+            prop_no_ct = sum(is.na(ct)) / n_distinct(workup_accession),
+            n_prop_ct_in_range = glue::glue("{n_ct_in_range} ({round(prop_ct_in_range*100,1)}%)"),
+            n_prop_no_ct = glue::glue("{n_no_ct} ({round(prop_no_ct*100,1)}%)"),
+            median_ct = median(ct, na.rm = TRUE),
+            q25_ct = quantile(ct, 0.25, na.rm = TRUE),
+            q75_ct = quantile(ct, 0.75, na.rm = TRUE),
+            median_iqr = glue::glue("{round(median_ct, 1)} ({round(q25_ct,1)} - {round(q75_ct,1)})"),
+  ) %>%
+  mutate(amplicon = case_when(amplicon == "bactin_ct" ~ "\u03B2-actin",
+                              amplicon == "ms2_ct" ~ "MS2",
+                              amplicon == "sarscov2_ct" ~ "SARS-CoV-2")) %>%
+  select(amplicon, contains("n_prop"), median_iqr) %>%
+  identity() -> bd_dat_tab
+
+bd_dat_tab %>%
+  select(-n_prop_no_ct) %>%
+  gt::gt() %>%
+  gt::cols_label("amplicon" = "Target", "n_prop_ct_in_range" = "Measured Ct", "median_iqr" = "Median (IQR) Ct") %>%
+  gt::opt_table_lines(extent = "all") -> bd_dat_gt
+bd_dat_gt
+
+
+bd_dat_gt %>%
+  write_rds("./tabs/bd_dat_tab.rds")
+
+
+bd_dat_gt %>%
+  gt::as_raw_html() %>%
+  write_lines("./tabs/bd_dat_tab.html")
+
 
 
 

@@ -97,13 +97,13 @@ To measure variability in the quality of NP swab collection, we performed amplif
   
 ### Materials and Methods:  
   
-* __Study Design, Setting, and Population__: We performed a retrospective cohort study of adult patients presenting to the PennMedicine health system between March 26 and July 4, 2020. The patient population included drive-through symptomatic, asymptomatic pre-procedure, and hospital inpatient transfer and discharge patients. As the goal of the study was to evaluate the impact of specimen quality on SARS-CoV-2 assay sensitivity, we included only NP specimens processed by a laboratory-developed emergency use authorization (EUA) SARS-CoV-2 assay that included a human gene target (β-actin) as a specimen quality control [@Singanayagam2020-mg; @Smieja2010-op]. No other SARS-CoV-2 assays in the health system included a human gene target. All specimens were assayed for β-actin and MS2 phage RNA in parallel with SARS-CoV-2. We included all SARS-CoV-2 RT-PCR results for which the positive PCR control analyte (MS2 phage RNA) was detected in the target Ct range (20-25 cycles) [@Dreier2005-ye]. A total of 1282 NP specimens were included. A waiver of informed consent was granted by the University of Pennsylvania Institutional Review Board (IRB protocols #843085 & #843274).  
+* __Study Design, Setting, and Population__: We performed a retrospective cohort study of adult patients presenting to the PennMedicine health system <span style='background-color:lightcyan'>between March 26 and July 4, 2020</span>. The patient population included drive-through symptomatic, asymptomatic pre-procedure, and hospital inpatient transfer and discharge patients. As the goal of the study was to evaluate the impact of specimen quality on SARS-CoV-2 assay sensitivity, we included only NP specimens processed by a laboratory-developed emergency use authorization (EUA) SARS-CoV-2 assay that included a human gene target (β-actin) as a specimen quality control [@Singanayagam2020-mg; @Smieja2010-op]. No other SARS-CoV-2 assays in the health system included a human gene target. All specimens were assayed for β-actin and MS2 phage RNA in parallel with SARS-CoV-2. We included all SARS-CoV-2 RT-PCR results for which the positive PCR control analyte (MS2 phage RNA) was detected in the target Ct range (20-25 cycles) [@Dreier2005-ye]. A total of 1282 NP specimens were included. A waiver of informed consent was granted by the University of Pennsylvania Institutional Review Board (IRB protocols #843085 & #843274).  
   
 * __Causal Models__: We hypothesized that β-actin and SARS-CoV-2 Ct values are related because poor NP specimen collection technique results in reduced capture of NP epithelial cells and SARS-CoV-2 alike. β-actin is a commonly used endogenous reference gene, used as an internal control for PCR reactions involving human specimens. This gene has been previously validated as a marker for the presence of nasal epithelial cells, and prior research has supported its use to assess the quality of self-collected midturbinate swabs [@Singanayagam2020-mg; @Smieja2010-op]. We additionally considered the possibility of confounding by COVID-19 severity of illness because those with more severe infection may have greater NP epithelial cell damage, resulting in greater detection of both PCR targets, irrespective of sampling technique.  
   
-* __Clinical Data Collection__:  To evaluate the possibility of confounding by disease severity, we measured two independent markers of respiratory illness: (1) the minimum room-air oxygen saturation recorded within 2 days of SARS-CoV-2 testing, and (2) whether infiltrates were observed chest computerized tomography (CT) imaging performed within 7 days of SARS-CoV-2 testing. Per Centers for Disease Control and Prevention (CDC) guidelines[@Cdc2020-gb], we considered room-air oxygen saturation < 94% indicative of severe respiratory illness. Radiology reports for CT imaging that described parenchymal lung disease, including "infiltrates", "pneumonia", "groundglass", or other "opacities", were considered indicative of severe respiratory illness. The presence of lung nodules, lung masses, chronic airway disease including bronchiectasis, emphysematous changes, or pleural effusions in the absence of parenchymal disease as described above, were not considered indicative of severe acute respiratory illness.      
+* __Clinical Data Collection__:  To evaluate the possibility of confounding by disease severity, we measured two independent markers of respiratory illness: (1) the minimum room-air oxygen saturation recorded within 2 days of SARS-CoV-2 testing, and (2) whether infiltrates were observed chest computerized tomography (CT) imaging performed within 7 days of SARS-CoV-2 testing. Per Centers for Disease Control and Prevention (CDC) guidelines[@Cdc2020-gb], we considered room-air oxygen saturation < 94% indicative of severe respiratory illness. <span style='background-color:lightcyan'>We chose to use CT imaging rather than x-ray imaging to discriminate findings likely to be related to SARS-CoV-2.</span> Radiology reports for CT imaging that described parenchymal lung disease, including "infiltrates", "pneumonia", "groundglass", or other "opacities", were considered indicative of severe respiratory illness. The presence of lung nodules, lung masses, chronic airway disease including bronchiectasis, emphysematous changes, or pleural effusions in the absence of parenchymal disease as described above, were not considered indicative of severe acute respiratory illness. <span style='background-color:lightcyan'>We chose to include CTs performed within 7 days of SARS-CoV-2 testing to capture disease severity that could plausibly have confounded the relationship between β-actin and SARS-CoV-2 Ct values.</span>     
   
-* __Specimen Collection, Processing, and RT-PCR Assay__: Specimens were collected during routine clinical practice using a nylon flocked mini-tip swab collected in VTM or saline. Healthcare providers obtained samples using CDC guidelines for NP samples collection. Samples were transported to the laboratory at ambient temperature and stored at 4⁰C if not run immediately. All specimens were analyzed at the Hospital of the University of Pennsylvania's Clinical Microbiology Laboratory using an EUA-approved laboratory-developed SARS-CoV-2 assay on the BD MAX system. The multiplex assay was designed to include a specimen quality control (β-actin)[@Singanayagam2020-mg; @Smieja2010-op], an internal processing control to monitor the RT and PCR steps (MS2 phage RNA)[@Dreier2005-ye], and a SARS-CoV-2 target (Orf1ab). Exk TNA2 extraction reagent kits (Becton Dickinson) for the BD MAX open system reagent suite were used for the lab-developed SARS-CoV-2 assay based on a previously described assay [@LeBlanc2020-wa; @Vermeiren2020-pm]. The BD MAX system was set to run type 1 workflow. PCR conditions consisted of a reverse transcriptase step (600s at 58⁰C, 1 cycle), denaturation step (60s at 98⁰C, 1 cycle) and extension steps (10s at 98⁰C followed by 40s at 63⁰C, 40 cycles). Ct values for all three targets (β-actin, MS2 phage RNA) were recorded.  
+* __Specimen Collection, Processing, and RT-PCR Assay__: Specimens were collected during routine clinical practice using a nylon flocked mini-tip swab collected in VTM or saline [@Garnett2020-dl; @Rogers2020-di; @Richard-Greenblatt2021-ql; @Rodino2020-dk]. Healthcare providers obtained samples using CDC guidelines for NP samples collection. Samples were transported to the laboratory at ambient temperature and stored at 4⁰C if not run immediately. All specimens were analyzed at the Hospital of the University of Pennsylvania's Clinical Microbiology Laboratory using an EUA-approved laboratory-developed SARS-CoV-2 assay on the BD MAX system. The multiplex assay was designed to include a specimen quality control (β-actin)[@Singanayagam2020-mg; @Smieja2010-op], an internal processing control to monitor the RT and PCR steps (MS2 phage RNA)[@Dreier2005-ye], and a SARS-CoV-2 target (Orf1ab). Exk TNA2 extraction reagent kits (Becton Dickinson) for the BD MAX open system reagent suite were used for the lab-developed SARS-CoV-2 assay based on a previously described assay [@LeBlanc2020-wa; @Vermeiren2020-pm]. The BD MAX system was set to run type 1 workflow. PCR conditions consisted of a reverse transcriptase step (600s at 58⁰C, 1 cycle), denaturation step (60s at 98⁰C, 1 cycle) and extension steps (10s at 98⁰C followed by 40s at 63⁰C, 40 cycles). Ct values for all three targets (β-actin, MS2 phage RNA) were recorded. <span style='background-color:lightcyan'>The acceptable range for β-actin in our assay was 24-37 Cts. Samples that were negative for SARS-CoV-2 and either negative for β-actin or with a β-actin Ct > 37 were reported as invalid.</span>  
   
 * __Definition of Exposures and Outcomes__: The primary exposure of interest was the β-actin Ct value, a surrogate for the quality of NP swab collection. The primary outcome of interest was SARS-CoV-2 Ct value.    
   
@@ -121,13 +121,13 @@ To measure variability in the quality of NP swab collection, we performed amplif
   
 ### Results:  
   
-* __SARS-CoV-2 Detection and Cycle Threshold Range__: Of 1282 tested specimens, 134 were found to have detectable SARS-CoV-2 within 40 cycles of PCR. Among these specimens, median (interquartile range (IQR)) SARS-CoV-2 Ct was 28 (20 to 33). No secular trend was observed between calendar time from local onset of COVID-19 cases and SARS-CoV-2 Ct values during the study period (Spearman correlation 0.18). **Figure 1** depicts the distribution of SARS-CoV-2 Ct values in comparison with the specimen quality control, β-actin, and RT-PCR reaction control, MS2 RNA, which had median (IQR) Ct values of 30 (29 to 32) and 22 (22 to 23), respectively.      
+* __SARS-CoV-2 Detection and Cycle Threshold Range__: Of 1282 tested specimens, 134 were found to have detectable SARS-CoV-2 within 40 cycles of PCR. <span style='background-color:lightcyan'>Among these specimens, median (interquartile range (IQR)) SARS-CoV-2 Ct was 27.9 (20.4 to 32.9). No secular trend was observed between calendar time from local onset of COVID-19 cases and SARS-CoV-2 Ct values during the study period (Spearman correlation 0.18). **Table 1** summarises the SARS-CoV-2 Ct values, as well as those of the specimen quality control, β-actin, and RT-PCR reaction control, MS2 RNA. **Supplemental Figure 1** depicts the distribution of each target and the relationships between their distrubtions.</span>   
   
-* __Relationship between β-Actin and SARS-CoV-2 Cycle Threshold__: We evaluated the relationship between NP specimen quality, measured by β-actin Ct value, and SARS-CoV-2 test sensitivity with logistic regression, and we found that increasing β-actin Ct values are significantly associated with reduced detection of SARS-CoV-2 (odds ratio 0.607, 95%CI 0.487 to 0.753). **Figure 2** shows the relationship between β-actin and SARS-CoV-2 detection probability. We further evaluated the linear relationship between β-actin and SARS-CoV-2 Ct values with linear regression, and we found that SARS-CoV-2 Ct increases significantly with β-actin Ct (slope 0.181, 95%CI 0.097 to 0.264). A linear model restricted to include only the 131 specimens within which both SARS-CoV-2 and β-actin were detectable (i.e., Ct < 40) also found that SARS-CoV-2 Ct increased with β-actin, but this relationship did not have high posterior certainty (slope 0.200, 95%CI -0.295 to 0.720), and linear model fit was poor.  
+* __Relationship between β-Actin and SARS-CoV-2 Cycle Threshold__: We evaluated the relationship between NP specimen quality, measured by β-actin Ct value, and SARS-CoV-2 test sensitivity with logistic regression, and we found that increasing β-actin Ct values are significantly associated with reduced detection of SARS-CoV-2 (odds ratio 0.607, 95%CI 0.487 to 0.753). **Figure 1** shows the relationship between β-actin and SARS-CoV-2 detection probability. We further evaluated the linear relationship between β-actin and SARS-CoV-2 Ct values with linear regression, and we found that SARS-CoV-2 Ct increases significantly with β-actin Ct (slope 0.181, 95%CI 0.097 to 0.264). A linear model restricted to include only the 131 specimens within which both SARS-CoV-2 and β-actin were detectable (i.e., Ct < 40) also found that SARS-CoV-2 Ct increased with β-actin, but this relationship did not have high posterior certainty (slope 0.200, 95%CI -0.295 to 0.720), and linear model fit was poor.  
   
 * __Impact of Poor NP Specimen Quality on SARS-CoV-2 Detection Sensitivity__: To understand the potential impact of poor NP specimen quality, we evaluated the change in probability of SARS-CoV-2 detection as β-actin Ct increases. We found that a 4-Ct increase in β-actin, from Ct of 28 to Ct of 32 (roughly from the first quartile of observed β-actin Ct values to the third quartile) results in a 6.34% (95%CI 3.35% to 9.17%) decreased probability of SARS-CoV-2 detection.    
   
-* __Impact of Disease Severity on Relationship Between β-Actin and SARS-CoV-2 Cycle Threshold__: Considering the possibility that the observed association between SARS-CoV-2 and β-actin Ct values is confounded by respiratory illness severity, we evaluated the relationship between β-actin Ct and independent markers of respiratory illness. Oxygen saturation data were available for 425 (33.1%) subjects; chest CT imaging was available for 108 (8.4%) subjects. Linear regression relating β-actin Ct values to oxygen saturation revealed no significant association with linear regression slope -0.04 (95%CI -0.273 to 0.182). Similarly, we found that the presence of parenchymal lung disease on chest CT radiography reports had no significant association with β-actin Ct values, with a linear regression slope 0.428 (95%CI -0.655 to 1.61). Mixed effects models revealed that the observed association between β-actin Ct values and probability of SARS-CoV-2 detection persists across all levels of respiratory illness, whether assessed by oxygen saturation or chest radiography (**Figure 3**). These analyses of independent markers of severe respiratory disease suggest that it is NP specimen quality, not disease severity, that drives the association between SARS-CoV-2 and β-actin Ct values.  
+* __Impact of Disease Severity on Relationship Between β-Actin and SARS-CoV-2 Cycle Threshold__: Considering the possibility that the observed association between SARS-CoV-2 and β-actin Ct values is confounded by respiratory illness severity, we evaluated the relationship between β-actin Ct and independent markers of respiratory illness. Oxygen saturation data were available for 425 (33.1%) subjects; chest CT imaging was available for 108 (8.4%) subjects. <span style='background-color:lightcyan'>At least one measure of disease severity was available for 38 (28.3%) of the cases of detectable SARS-CoV-2.</span> Linear regression relating β-actin Ct values to oxygen saturation revealed no significant association with linear regression slope -0.04 (95%CI -0.273 to 0.182). Similarly, we found that the presence of parenchymal lung disease on chest CT radiography reports had no significant association with β-actin Ct values, with a linear regression slope 0.428 (95%CI -0.655 to 1.61). Mixed effects models revealed that the observed association between β-actin Ct values and probability of SARS-CoV-2 detection persists across all levels of respiratory illness, whether assessed by oxygen saturation or chest radiography (**Figure 2**). These analyses of independent markers of severe respiratory disease suggest that it is NP specimen quality, not disease severity, that drives the association between SARS-CoV-2 and β-actin Ct values. <span style='background-color:lightcyan'>To further corroberate these findings, we repeated the analysis, comparing specimens collected from inpatient (n = 858) versus outpatient (n = 424) locations. We found the same association between β-actin Ct values and probability of SARS-CoV-2 detection across both specimen collection sites.</span>  
   
   
 -----  
@@ -138,27 +138,36 @@ To measure variability in the quality of NP swab collection, we performed amplif
 ### Discussion:  
 In this study, we found that higher β-actin Ct values, which have been previously validated as a marker of low NP swab quality [@Singanayagam2020-mg; @Smieja2010-op], were associated with reduced probability of SARS-CoV-2 detection and with higher SARS-CoV-2 Ct values. This finding has several important implications. First, the correlation between β-actin Ct and SARS-CoV-2 suggests that quantitative interpretation of SARS-CoV-2 human specimens may be significantly impacted by the quality of specimen collection, potentially limiting the ability to compare results. In this cohort, we found that each increase in β-actin Ct was associated with an increased SARS-CoV-2 Ct of 0.181. The quantitative interpretation of SARS-CoV-2 RT-PCR Ct results may be enhanced by adjusting for the β-actin Ct. Such adjustment could be used in studies comparing results of serial testing within subjects or populations, where there is a change in β-actin Ct between specimens. Second, the data support the concern that poor specimen collection may contribute to false-negative results. The concern of false-negative NP SARS-CoV-2 testing has led to the recommendation to retest patients with moderate to high clinical suspicion of COVID-19 [@Gniazdowski2020-gy; @Hanson2020-gh]. Reporting the β-actin Ct, or a β-actin-adjusted SARS-CoV-2 Ct may allow clinicians to better interpret specimen quality when considering retesting.  
   
-We considered the possibility that the observed relationship between SARS-CoV-2 and β-actin Ct values might be confounded by respiratory disease severity, but we found no significant association between independent markers of severe respiratory disease and lower β-actin Ct values. However, several limitations of our analysis must be acknowledged. Oxygen saturation data and chest CT radiography reports were only available for a small percentage (32.6% and 8.5%, respectively) of our subjects. Subject demographics and medical comorbidities could not be ascertained for subjects, so unmeasured confounders may contribute to the observed association.    
+We considered the possibility that the observed relationship between SARS-CoV-2 and β-actin Ct values might be confounded by respiratory disease severity, but we found no significant association between independent markers of severe respiratory disease and lower β-actin Ct values. However, several limitations of our analysis must be acknowledged. <span style='background-color:lightcyan'>Measures of disease severity are imprecise,</span> and oxygen saturation data and chest CT radiography reports were only available for a small percentage (32.6% and 8.5%, respectively) of our subjects. Subject demographics and medical comorbidities could not be ascertained for subjects, so unmeasured confounders may contribute to the observed association. <span style='background-color:lightcyan'>The impact of comorbid conditions, immunocompromise, and duration of illness on the observed relationship are important areas for future study.</span>     
   
-Despite these limitations, we believe that the observed association between NP specimen quality and SARS-CoV-2 RT-PCR sensitivity is an important finding. From 1282 NP specimens submitted for SARS-CoV-2 testing, we have quantified the variation in specimen quality measured by β-actin Ct value, and we have defined the impact of the observed variation on test sensitivity and SARS-CoV-2 Ct values.  
+Despite our study's limitations, we believe that the observed association between NP specimen quality and SARS-CoV-2 RT-PCR sensitivity is an important finding. From 1282 NP specimens submitted for SARS-CoV-2 testing, we have quantified the variation in specimen quality measured by β-actin Ct value, and we have defined the impact of the observed variation on test sensitivity and SARS-CoV-2 Ct values. <span style='background-color:lightcyan'>The original CDC SARS-CoV-2 assay included a human gene internal control, ribonuclease P (RNAse P). However, most commercial SARS-CoV-2 assays do not include a human gene target. Our findings suggest that caution is required in the clinical interpretation of Ct values from such assays.</span>  
   
 SARS-CoV-2 Ct values have shown promise as a means to roughly quantify viral burden and so to guide infection control and public health interventions [@He2020-hh; @Singanayagam2020-mg; @Rhee2020-uf; @Tom2020-mt; @Alteri2020-aw; @Binnicker2020-rz; @Hay2020-ci; @Cleary2021-iy]. However, variability in NP specimen collection may exert large effects on observed SARS-CoV-2 Ct values, limiting these useful applications. As testing efforts expand, infrastructure to ensure quality sample collection must expand as well [Cdc2020-sb; @Procop2020-zl]. Concurrent measurement of a β-actin human gene target may provide a means to recognize and adjust for variability in NP specimen quality.      
   
   
 
 
- <!-- -----
+-----
 \newpage
 <P style = "page-break-before: always">
   
   
 ### Tables:  
   
-#### Table 1: -->   
-```{r table1, eval=TRUE, autodep=TRUE, fig.align='center'}
+#### Table 1:   
+```{r table1, eval=TRUE, error=FALSE, message=FALSE, warning=FALSE, autodep=TRUE, fig.align='center'}
+
+library(gt)
+
+bd_dat_gt <- read_rds("./tabs/bd_dat_tab.rds")
+bd_dat_gt
 
 
 ```
+
+<span style='background-color:lightcyan'>  
+__Table 1: SARS-CoV-2 and control Ct values.__ A summary of the observed cycle threshold values for SARS-CoV-2 RT-PCR, with MS2 RNA positive control and β-actin specimen quality control, over 1282 consecutive clinical assays run between March 26 and July 4, 2020. For each target we describe the number and percentage of specimens with measured Ct values, as well as the median and interquartile range (IQR) of the measured values.  
+</span>  
   
   
 -----  
@@ -169,22 +178,8 @@ SARS-CoV-2 Ct values have shown promise as a means to roughly quantify viral bur
   
 #### Figure 1:  
   
-  
+
 ```{r fig1, eval=TRUE, autodep=TRUE, fig.align='center', out.width='90%'}
-
-knitr::include_graphics(path = "./figs/p_rtpcr_analyte_comparison.svg")
-
-
-```
-  
-  
-__Figure 1: Distribution and relationships of Ct values for SARS-CoV-2 and β-actin specimen quality control.__ A matrix plot depicting the observed cycle threshold values for SARS-CoV-2 RT-PCR, with MS2 RNA positive control and β-actin specimen quality control over 1282 consecutive clinical assays run between March 26 and July 4, 2020. Panels on the diagonal present the distribution of each target's Ct values. Panels off the diagonal present the relationship between Ct values for each pair of targets. Ct for specimens without detectable SARS-CoV-2 or β-actin were imputed at 40 cycles.  
-  
-  
-#### Figure 2:  
-  
-
-```{r fig2, eval=TRUE, autodep=TRUE, fig.align='center', out.width='90%'}
 
 knitr::include_graphics(path = "./figs/p_logit_scale_brms.svg")
 
@@ -192,14 +187,14 @@ knitr::include_graphics(path = "./figs/p_logit_scale_brms.svg")
 ```
   
   
-__Figure 2: Relationship between β-actin and SARS-CoV-2 detection probability.__ Binomial logistic regression relating SARS-CoV-2 detection to β-actin Ct value reveals a negative association, with high β-actin Ct (i.e., low quality) NP specimens less likely to detect SARS-CoV-2. The absolute probability of SARS-CoV-2 detection is presented in relation to the observed range of β-actin Ct values.  
+__Figure 1: Relationship between β-actin and SARS-CoV-2 detection probability.__ Binomial logistic regression relating SARS-CoV-2 detection to β-actin Ct value reveals a negative association, with high β-actin Ct (i.e., low quality) NP specimens less likely to detect SARS-CoV-2. The absolute probability of SARS-CoV-2 detection is presented in relation to the observed range of β-actin Ct values.  
   
   
   
-#### Figure 3:  
+#### Figure 2:  
   
 
-```{r fig3, eval=TRUE, autodep=TRUE, fig.align='center', out.width='90%'}
+```{r fig2, eval=TRUE, autodep=TRUE, fig.align='center', out.width='90%'}
 
 knitr::include_graphics(path = "./figs/p_logit_scale_ct_o2_brms.svg")
 
@@ -207,7 +202,7 @@ knitr::include_graphics(path = "./figs/p_logit_scale_ct_o2_brms.svg")
 ```
   
   
-__Figure 3: Relationship between β-actin and SARS-CoV-2 detection probability, stratified by illness severity.__ A mixed effects binomial logistic regression relating SARS-CoV-2 detection to β-actin Ct value reveals a negative association, with high β-actin Ct (i.e., low quality) NP specimens less likely to detect SARS-CoV-2, across all strata of disease severity as assessed by chest radiography (panel A) or oxygen saturation (panel B). The absolute probability of SARS-CoV-2 detection is presented in relation to the observed range of β-actin Ct values.  
+__Figure 2: Relationship between β-actin and SARS-CoV-2 detection probability, stratified by illness severity.__ A mixed effects binomial logistic regression relating SARS-CoV-2 detection to β-actin Ct value reveals a negative association, with high β-actin Ct (i.e., low quality) NP specimens less likely to detect SARS-CoV-2, across all strata of disease severity as assessed by chest radiography (panel A) or oxygen saturation (panel B). The absolute probability of SARS-CoV-2 detection is presented in relation to the observed range of β-actin Ct values.    
   
   
   
@@ -216,15 +211,18 @@ __Figure 3: Relationship between β-actin and SARS-CoV-2 detection probability, 
 <P style = "page-break-before: always">
   
   
- <!-- 
- <!-- -----  
-\newpage
-<P style = "page-break-before: always">
-  
-  
-  
-### Supplemental Figures: --> 
+### Supplemental Figures:  
 
+#### Figure 1:  
+  
+  
+```{r supp_fig1, eval=TRUE, autodep=TRUE, fig.align='center', out.width='90%'}
+
+knitr::include_graphics(path = "./figs/p_rtpcr_analyte_comparison_cap.png")
+
+
+```
+  
   
   
 -----

@@ -564,3 +564,125 @@ m_lin_raw_o2_brms %>%
   # )
 
 
+
+
+
+#' #############################################
+#' 
+#' requested sensitivity analysis: does sample location, possible surrogate for severity, matter?
+#' 
+#' #############################################
+
+
+bd_impute %>%
+  mutate(o2_below_94 = o2_sat < 0.94) %>%
+  mutate(covid_positive = as.numeric(grepl("POS",result))) %>%
+  select(covid_positive, chest_ct_infiltrates, contains("o2"), ms2_ct, bactin_ct, sarscov2_ct) %>%
+  mutate_at(.vars = vars(-covid_positive, -chest_ct_infiltrates, -o2_below_94), .funs = list("flip" = ~ -log(.x)),) %>%
+  mutate_at(.vars = vars(-covid_positive, -chest_ct_infiltrates, -o2_below_94, -contains("flip")), .funs = list("scale" = ~ scale(.x)[,1])) %>%
+  mutate(any_severity_marker = !is.na(o2_below_94) | !is.na(chest_ct_infiltrates)) %>%
+  group_by(any_severity_marker) %>%
+  summarise(covid_n = sum(sarscov2_ct < 40)) %>%
+  ungroup() %>%
+  mutate(covid_prop = covid_n / sum(covid_n)) %>%
+  gt::gt()
+
+
+
+
+bd_loc <- read_csv("./data/np_location.csv")
+bd_loc
+
+bd_impute %>%
+  left_join(bd_loc, by = "workup_accession") %>%
+  #count(is.na(location))
+  mutate(covid_positive = as.numeric(grepl("POS",result))) %>%
+  select(covid_positive, chest_ct_infiltrates, contains("o2"), ms2_ct, bactin_ct, sarscov2_ct, location) %>%
+  mutate_at(.vars = vars(-covid_positive, -chest_ct_infiltrates, -contains("o2"), -location), .funs = list("flip" = ~ -log(.x)),) %>%
+  mutate_at(.vars = vars(-covid_positive, -chest_ct_infiltrates, -contains("o2"), -location, -contains("flip")), .funs = list("scale" = ~ scale(.x)[,1])) %>%
+  mutate(chest_ct_infiltrates = ifelse(is.na(chest_ct_infiltrates), "Unknown", ifelse(chest_ct_infiltrates == TRUE, "Present", "Absent"))) %>%
+  brm(data = ., family = bernoulli,
+      covid_positive ~ (bactin_ct_scale + 1 | location),
+      prior = c(prior(normal(0, 0.5), class = Intercept),
+                prior(normal(0, 0.5), class = sd),
+                prior(lkj(1), class = cor)
+      ),
+      iter = 2000,
+      warmup = 1000,
+      chains = 4,
+      cores = 4,
+      control = list("adapt_delta" = 0.9999, max_treedepth = 22),
+      backend = "cmdstanr",
+      seed = 16) -> m_logit_scale_location_brms
+
+
+m_logit_scale_location_brms %>% write_rds(file = "./models/binomial/m_logit_scale_location_brms.rds.gz", compress = "gz")
+m_logit_scale_location_brms$fit %>% write_rds(file = "./models/binomial/m_logit_scale_location_brms_stanfit.rds.gz", compress = "gz")
+m_logit_scale_location_brms <- read_rds(file = "./models/binomial/m_logit_scale_location_brms.rds.gz")
+
+m_logit_scale_location_brms$formula
+
+
+pp_check(m_logit_scale_location_brms)
+m_logit_scale_location_brms$fit -> m_logit_scale_location_stan
+rstan::check_hmc_diagnostics(m_logit_scale_location_stan)
+
+
+
+# binomial model results on OR scale
+m_logit_scale_location_brms %>%
+  brms::posterior_summary() %>%
+  as_tibble(rownames = "param") %>%
+  # odds ratio scale
+  mutate_if(.predicate = ~ is.numeric(.x), .funs = list("OR" = ~ exp(.x))) %>%
+  gt::gt()
+
+
+
+# binomial model results on probability scale
+
+m_logit_scale_location_brms$data %>%
+  count(location) %>%
+  mutate(proportion = n / sum(n, na.rm = TRUE)) %>%
+  gt::gt_preview() %>%
+  gt::fmt_percent(columns = 4, decimals = 1)
+
+
+m_logit_scale_location_brms$data %>%
+  tibble() %>%
+  expand(bactin_ct_scale = modelr::seq_range(bactin_ct_scale, n = 100),
+         location = unique(location)) %>% 
+  tidybayes::add_fitted_draws(model = m_logit_scale_location_brms) %>%
+  mutate(bactin_ct = bactin_ct_scale * sd(bd_impute$bactin_ct) + mean(bd_impute$bactin_ct)) %>%
+  mutate(location_cat_number = case_when(location == "Inpatient" ~ 858,
+                                   location == "Outpatient" ~ 424,
+  ),
+  location = glue::glue("{location} (n={location_cat_number})")
+  ) %>%
+  ggplot(data = ., aes(x = bactin_ct, y = .value)) +
+  tidybayes::stat_lineribbon(.width = c(0.5,0.8,0.95),
+                             alpha = 0.7,
+                             color = colorspace::sequential_hcl(5, palette = "Blues 3")[1]) +
+  colorspace::scale_fill_discrete_sequential(palette = "Blues 3", nmax = 5, order = 2:4) +
+  facet_wrap(facets = ~ location, scales = "free") +
+  theme_bw() +
+  theme(legend.position = c(0.93,0.81),
+        strip.background = element_blank(),
+        legend.title = ggtext::element_markdown(),
+        axis.text.x = ggtext::element_markdown(color = "black"),
+        axis.text.y = ggtext::element_markdown(color = "black"),
+        axis.title.x = ggtext::element_markdown(),
+        strip.text = ggtext::element_markdown(color = "black"),
+        legend.background = element_rect(color = "black", size = 0.25, fill = "white")
+  ) +
+  labs(x = "\u03B2-actin Ct Value",
+       #x = expression(paste(beta,"-actin Ct Value")),
+       y = "Probability SARS-CoV-2 Positive",
+       #title = "Impact of Specimen Quality on Test Sensitivity",
+       fill = "Posterior<br>Credible<br>Interval"
+  ) -> p_logit_scale_location_brms
+p_logit_scale_location_brms
+
+
+
+
