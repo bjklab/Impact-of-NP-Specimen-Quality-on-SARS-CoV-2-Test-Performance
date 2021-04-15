@@ -1,0 +1,62 @@
+---
+#title: "Quantifying the Impact of Nasopharyngeal Specimen Quality of SARS-CoV-2 Test Performance"
+#author: "Brendan J. Kelly, MD, MS"
+bibliography: bib/references.bib
+csl: csl/ofid.csl
+output: html_document
+css: style_helvetica_double.css
+---
+
+
+```{r setup, echo=FALSE, eval=TRUE, include=FALSE, autodep=TRUE}
+
+knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE)
+library(tidyverse)
+library(tidybayes)
+
+
+```
+  
+`r format(Sys.Date(), "%d %B %Y")`
+  
+<br>  
+  
+To the editor:  
+  
+Thank you for your review of our manuscript, titled "Quantifying the Impact of Nasopharyngeal Specimen Quality on SARS-CoV-2 Test Performance." We have made substantial revisions to the manuscript and added new analyses in response to the reviewers' comments. We believe the manuscript is significantly improved as a result of these changes. We have attached the new manuscript with changes highlighted, and below we have summarised our responses to the reviewers' comments, including the locations of edits:  
+  
+<br>  
+  
+```{r response_table, echo=FALSE, eval=TRUE, include=TRUE, message=FALSE, warning=FALSE, error=FALSE, autodep=TRUE}
+
+library(tidyverse)
+library(gt)
+
+revision_tab <- read_tsv("./revision/ofid_review_response.tsv")
+
+revision_tab %>%
+  gt::gt() %>%
+  gt::opt_table_lines(extent = "all")
+
+
+```
+  
+<br>
+  
+We believe that the attached manuscript will be of interest to the infectious diseases, clinical microbiology, and epidemiology communities, particularly in light of growing interest in using SARS-CoV-2 Ct values to guide infection control and public health interventions. All authors have reviewed and approved the attached manuscript, and we report no conflicts of interest. The manuscript is not under consideration at any other journal. Please contact me (brendank@pennmedicine.upenn.edu) in case of any questions.  
+  
+Many thanks for your consideration,  
+  
+  
+<br>  
+    
+    
+Brendan J. Kelly, MD, MS
+Assistant Professor of Medicine & Epidemiology  
+Division of Infectious Diseases  
+Perelman School of Medicine  
+University of Pennsylvania  
+  
+  
+  
+  
