@@ -395,6 +395,8 @@ p_logit_scale_brms
 #   ggsave(plot = ., filename = "./figs/p_logit_scale_brms.svg", height = 3, width = 4, units = "in")
 # p_logit_scale_brms %>%
 #   ggsave(plot = ., filename = "./figs/p_logit_scale_brms.png", height = 3, width = 4, units = "in", dpi = 600)
+# p_logit_scale_brms %>%
+#   ggsave(plot = ., filename = "./figs/p_logit_scale_brms.tiff", height = 3, width = 4, units = "in", dpi = 600)
 
 
 
