@@ -19,6 +19,8 @@ library(tidybayes)
   
 `r format(Sys.Date(), "%d %B %Y")`
   
+RE: revised research manuscript submission  
+  
 <br>  
   
 To the editor:  
@@ -51,7 +53,7 @@ Many thanks for your consideration,
 <br>  
     
     
-Brendan J. Kelly, MD, MS
+Brendan J. Kelly, MD, MS  
 Assistant Professor of Medicine & Epidemiology  
 Division of Infectious Diseases  
 Perelman School of Medicine  
