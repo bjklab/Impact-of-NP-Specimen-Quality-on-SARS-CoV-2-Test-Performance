@@ -481,8 +481,8 @@ BJK - study design, data analysis, manuscript</p>
 <li><p><strong>Clinical Data Collection</strong>: To evaluate the possibility of confounding by disease severity, we measured two independent markers of respiratory illness: (1) the minimum room-air oxygen saturation recorded within 2 days of SARS-CoV-2 testing, and (2) whether infiltrates were observed chest computerized tomography (CT) imaging performed within 7 days of SARS-CoV-2 testing. Per Centers for Disease Control and Prevention (CDC) guidelines<span class="citation">[16]</span>, we considered room-air oxygen saturation &lt; 94% indicative of severe respiratory illness. <span style="background-color:lightcyan">We chose to use CT imaging rather than x-ray imaging to discriminate findings likely to be related to SARS-CoV-2.</span> Radiology reports for CT imaging that described parenchymal lung disease, including “infiltrates”, “pneumonia”, “groundglass”, or other “opacities”, were considered indicative of severe respiratory illness. The presence of lung nodules, lung masses, chronic airway disease including bronchiectasis, emphysematous changes, or pleural effusions in the absence of parenchymal disease as described above, were not considered indicative of severe acute respiratory illness. <span style="background-color:lightcyan">We chose to include CTs performed within 7 days of SARS-CoV-2 testing to capture disease severity that could plausibly have confounded the relationship between β-actin and SARS-CoV-2 Ct values.</span></p></li>
 <li><p><strong>Specimen Collection, Processing, and RT-PCR Assay</strong>: Specimens were collected during routine clinical practice using a nylon flocked mini-tip swab collected in VTM or saline <span class="citation">[17–20]</span>. Healthcare providers obtained samples using CDC guidelines for NP samples collection. Samples were transported to the laboratory at ambient temperature and stored at 4⁰C if not run immediately. All specimens were analyzed at the Hospital of the University of Pennsylvania’s Clinical Microbiology Laboratory using an EUA-approved laboratory-developed SARS-CoV-2 assay on the BD MAX system. The multiplex assay was designed to include a specimen quality control (β-actin)<span class="citation">[2,14]</span>, an internal processing control to monitor the RT and PCR steps (MS2 phage RNA)<span class="citation">[15]</span>, and a SARS-CoV-2 target (Orf1ab). Exk TNA2 extraction reagent kits (Becton Dickinson) for the BD MAX open system reagent suite were used for the lab-developed SARS-CoV-2 assay based on a previously described assay <span class="citation">[21,22]</span>. The BD MAX system was set to run type 1 workflow. PCR conditions consisted of a reverse transcriptase step (600s at 58⁰C, 1 cycle), denaturation step (60s at 98⁰C, 1 cycle) and extension steps (10s at 98⁰C followed by 40s at 63⁰C, 40 cycles). Ct values for all three targets (β-actin, MS2 phage RNA) were recorded. <span style="background-color:lightcyan">The acceptable Ct range for β-actin in our assay was 24-37. Samples that were negative for SARS-CoV-2 and either negative for β-actin or with a β-actin Ct &gt; 37 were reported as invalid.</span></p></li>
 <li><p><strong>Definition of Exposures and Outcomes</strong>: The primary exposure of interest was the β-actin Ct value, a surrogate for the quality of NP swab collection. The primary outcome of interest was SARS-CoV-2 Ct value.</p></li>
-<li><p><strong>Statistical Methods</strong>: Data were organized using R statistical software version 3.6.1 <span class="citation">[23]</span>, and plots generated using the “ggplot2” package <span class="citation">[24]</span>. Where β-actin and SARS-CoV-2 were not detected, Ct values were imputed as 40 cycles. We examined (1) the linear relationship between β-actin and SARS-CoV-2 Ct values, as well as (2) the impact of β-actin Ct on SARS-CoV-2 detection using Bayesian linear and generalized-linear mixed effects models, which were fit using Stan Hamiltonian Monte Carlo (HMC) version 2.21, via the “brms” package with default weakly-informative priors <span class="citation">[25,26]</span>. Mixed effects models were fit in the same manner, with random slopes and intercepts according to disease severity (assessed by radiography or oxygen saturation) to evaluate the impact of disease severity on the relationship. Prior predictive modeling was performed, and models were fit with 4 chains of 1000 iterations, confirmed with HMC diagnostics (no divergent iterations, Rhat statistic &lt; 1.1 for all parameters, and E-BFMI &gt; 0.2) <span class="citation">[<span class="citeproc-not-found" data-reference-id="Gelman2020-yu"><strong>???</strong></span>,27,28]</span>. We examined parameter distributions at 50%, 80%, and 95% posterior credible intervals to understand the relationship between exposure and outcome variables. The posterior credible intervals estimate the probability that the true parameter value lies within the interval, based on the observed data.</p></li>
-<li><p><strong>Power and Sample Size</strong>: We estimated the necessary cohort size based on the anticipated effect of poor NP swab quantity <span class="citation">[29]</span>. We anticipated that approximately 800 subjects would detect a 10% reduction in sensitivity of SARS-CoV-2 detection related to a β-actin Ct increase of 10, with credible intervals precision ensuring type S error &lt; 5% <span class="citation">[30,31]</span>. We targeted enrollment of 10% more subjects to allow for a margin of error in that estimate, and we exceeded our enrollment target.</p></li>
+<li><p><strong>Statistical Methods</strong>: Data were organized using R statistical software version 3.6.1 <span class="citation">[23]</span>, and plots generated using the “ggplot2” package <span class="citation">[24]</span>. Where β-actin and SARS-CoV-2 were not detected, Ct values were imputed as 40 cycles. We examined (1) the linear relationship between β-actin and SARS-CoV-2 Ct values, as well as (2) the impact of β-actin Ct on SARS-CoV-2 detection using Bayesian linear and generalized-linear mixed effects models, which were fit using Stan Hamiltonian Monte Carlo (HMC) version 2.21, via the “brms” package with default weakly-informative priors <span class="citation">[25,26]</span>. Mixed effects models were fit in the same manner, with random slopes and intercepts according to disease severity (assessed by radiography or oxygen saturation) to evaluate the impact of disease severity on the relationship. Prior predictive modeling was performed, and models were fit with 4 chains of 1000 iterations, confirmed with HMC diagnostics (no divergent iterations, Rhat statistic &lt; 1.1 for all parameters, and E-BFMI &gt; 0.2) <span class="citation">[27–29]</span>. We examined parameter distributions at 50%, 80%, and 95% posterior credible intervals to understand the relationship between exposure and outcome variables. The posterior credible intervals estimate the probability that the true parameter value lies within the interval, based on the observed data.</p></li>
+<li><p><strong>Power and Sample Size</strong>: We estimated the necessary cohort size based on the anticipated effect of poor NP swab quantity <span class="citation">[30]</span>. We anticipated that approximately 800 subjects would detect a 10% reduction in sensitivity of SARS-CoV-2 detection related to a β-actin Ct increase of 10, with credible intervals precision ensuring type S error &lt; 5% <span class="citation">[31,32]</span>. We targeted enrollment of 10% more subjects to allow for a margin of error in that estimate, and we exceeded our enrollment target.</p></li>
 <li><p><strong>Availability of Data</strong>: Data, analysis scripts, and model code are available at github.com/bjklab.</p></li>
 </ul>
 <hr />
@@ -492,10 +492,10 @@ BJK - study design, data analysis, manuscript</p>
 <div id="results" class="section level3">
 <h3>Results:</h3>
 <ul>
-<li><p><strong>SARS-CoV-2 Detection and Cycle Threshold Range</strong>: Of 1282 tested specimens, 134 were found to have detectable SARS-CoV-2 within 40 cycles of PCR. <span style="background-color:lightcyan">Among these specimens, median (interquartile range (IQR)) SARS-CoV-2 Ct was 27.9 (20.4 to 32.9). No secular trend was observed between calendar time from local onset of COVID-19 cases and SARS-CoV-2 Ct values during the study period (Spearman correlation 0.18). <strong>Table 1</strong> summarises the SARS-CoV-2 Ct values, as well as those of the specimen quality control, β-actin, and RT-PCR reaction control, MS2 RNA. <strong>Supplemental Figure 1</strong> depicts the distribution of each target and the relationships between their distributions.</span></p></li>
+<li><p><strong>SARS-CoV-2 Detection and Cycle Threshold Range</strong>: Of 1282 tested specimens, 134 were found to have detectable SARS-CoV-2 within 40 cycles of PCR. <span style="background-color:lightcyan">Among these specimens, median (interquartile range (IQR)) SARS-CoV-2 Ct was 27.9 (20.4 to 32.9). No secular trend was observed between calendar time from local onset of COVID-19 cases and SARS-CoV-2 Ct values during the study period (Spearman correlation 0.18). <strong>Table 1</strong> summarizes the SARS-CoV-2 Ct values, as well as those of the specimen quality control, β-actin, and RT-PCR reaction control, MS2 RNA. <strong>Supplemental Figure 1</strong> depicts the distribution of each target and the relationships between their distributions.</span></p></li>
 <li><p><strong>Relationship between β-Actin and SARS-CoV-2 Cycle Threshold</strong>: We evaluated the relationship between NP specimen quality, measured by β-actin Ct value, and SARS-CoV-2 test sensitivity with logistic regression, and we found that increasing β-actin Ct values are significantly associated with reduced detection of SARS-CoV-2 (odds ratio 0.607, 95%CI 0.487 to 0.753). <strong>Figure 1</strong> shows the relationship between β-actin and SARS-CoV-2 detection probability. We further evaluated the linear relationship between β-actin and SARS-CoV-2 Ct values with linear regression, and we found that SARS-CoV-2 Ct increases significantly with β-actin Ct (slope 0.181, 95%CI 0.097 to 0.264). A linear model restricted to include only the 131 specimens within which both SARS-CoV-2 and β-actin were detectable (i.e., Ct &lt; 40) also found that SARS-CoV-2 Ct increased with β-actin, but this relationship did not have high posterior certainty (slope 0.200, 95%CI -0.295 to 0.720), and linear model fit was poor.</p></li>
 <li><p><strong>Impact of Poor NP Specimen Quality on SARS-CoV-2 Detection Sensitivity</strong>: To understand the potential impact of poor NP specimen quality, we evaluated the change in probability of SARS-CoV-2 detection as β-actin Ct increases. We found that a 4-Ct increase in β-actin, from Ct of 28 to Ct of 32 (roughly from the first quartile of observed β-actin Ct values to the third quartile) results in a 6.34% (95%CI 3.35% to 9.17%) decreased probability of SARS-CoV-2 detection.</p></li>
-<li><p><strong>Impact of Disease Severity on Relationship Between β-Actin and SARS-CoV-2 Cycle Threshold</strong>: Considering the possibility that the observed association between SARS-CoV-2 and β-actin Ct values is confounded by respiratory illness severity, we evaluated the relationship between β-actin Ct and independent markers of respiratory illness. Oxygen saturation data were available for 425 (33.1%) subjects; chest CT imaging was available for 108 (8.4%) subjects. <span style="background-color:lightcyan">At least one measure of disease severity was available for 38 (28.3%) of the cases of detectable SARS-CoV-2.</span> Linear regression relating β-actin Ct values to oxygen saturation revealed no significant association with linear regression slope -0.04 (95%CI -0.273 to 0.182). Similarly, we found that the presence of parenchymal lung disease on chest CT radiography reports had no significant association with β-actin Ct values, with a linear regression slope 0.428 (95%CI -0.655 to 1.61). Mixed effects models revealed that the observed association between β-actin Ct values and probability of SARS-CoV-2 detection persists across all levels of respiratory illness, whether assessed by oxygen saturation or chest radiography (<strong>Figure 2</strong>). These analyses of independent markers of severe respiratory disease suggest that it is NP specimen quality, not disease severity, that drives the association between SARS-CoV-2 and β-actin Ct values. <span style="background-color:lightcyan">To further corroberate these findings, we repeated the analysis, comparing specimens collected from inpatient (n = 858) versus outpatient (n = 424) locations. We found the same association between β-actin Ct values and probability of SARS-CoV-2 detection across both specimen collection sites.</span></p></li>
+<li><p><strong>Impact of Disease Severity on Relationship Between β-Actin and SARS-CoV-2 Cycle Threshold</strong>: Considering the possibility that the observed association between SARS-CoV-2 and β-actin Ct values is confounded by respiratory illness severity, we evaluated the relationship between β-actin Ct and independent markers of respiratory illness. Oxygen saturation data were available for 425 (33.1%) subjects; chest CT imaging was available for 108 (8.4%) subjects. <span style="background-color:lightcyan">At least one measure of disease severity was available for 38 (28.3%) of the cases of detectable SARS-CoV-2.</span> Linear regression relating β-actin Ct values to oxygen saturation revealed no significant association with linear regression slope -0.04 (95%CI -0.273 to 0.182). Similarly, we found that the presence of parenchymal lung disease on chest CT radiography reports had no significant association with β-actin Ct values, with a linear regression slope 0.428 (95%CI -0.655 to 1.61). Mixed effects models revealed that the observed association between β-actin Ct values and probability of SARS-CoV-2 detection persists across all levels of respiratory illness, whether assessed by oxygen saturation or chest radiography (<strong>Figure 2</strong>). These analyses of independent markers of severe respiratory disease suggest that it is NP specimen quality, not disease severity, that drives the association between SARS-CoV-2 and β-actin Ct values. <span style="background-color:lightcyan">To further corroborate these findings, we repeated the analysis, comparing specimens collected from inpatient (n = 858) versus outpatient (n = 424) locations. We found the same association between β-actin Ct values and probability of SARS-CoV-2 detection across both specimen collection sites.</span></p></li>
 </ul>
 <hr />
 <div style="page-break-after: always;"></div>
@@ -503,7 +503,7 @@ BJK - study design, data analysis, manuscript</p>
 </div>
 <div id="discussion" class="section level3">
 <h3>Discussion:</h3>
-<p>In this study, we found that higher β-actin Ct values, which have been previously validated as a marker of low NP swab quality <span class="citation">[2,14]</span>, were associated with reduced probability of SARS-CoV-2 detection and with higher SARS-CoV-2 Ct values. This finding has several important implications. First, the correlation between β-actin Ct and SARS-CoV-2 suggests that quantitative interpretation of SARS-CoV-2 human specimens may be significantly impacted by the quality of specimen collection, potentially limiting the ability to compare results. In this cohort, we found that each increase in β-actin Ct was associated with an increased SARS-CoV-2 Ct of 0.181. The quantitative interpretation of SARS-CoV-2 RT-PCR Ct results may be enhanced by adjusting for the β-actin Ct. Such adjustment could be used in studies comparing results of serial testing within subjects or populations, where there is a change in β-actin Ct between specimens. Second, the data support the concern that poor specimen collection may contribute to false-negative results. The concern of false-negative NP SARS-CoV-2 testing has led to the recommendation to retest patients with moderate to high clinical suspicion of COVID-19 <span class="citation">[32,33]</span>. Reporting the β-actin Ct, or a β-actin-adjusted SARS-CoV-2 Ct may allow clinicians to better interpret specimen quality when considering retesting.</p>
+<p>In this study, we found that higher β-actin Ct values, which have been previously validated as a marker of low NP swab quality <span class="citation">[2,14]</span>, were associated with reduced probability of SARS-CoV-2 detection and with higher SARS-CoV-2 Ct values. This finding has several important implications. First, the correlation between β-actin Ct and SARS-CoV-2 suggests that quantitative interpretation of SARS-CoV-2 human specimens may be significantly impacted by the quality of specimen collection, potentially limiting the ability to compare results. In this cohort, we found that each increase in β-actin Ct was associated with an increased SARS-CoV-2 Ct of 0.181. The quantitative interpretation of SARS-CoV-2 RT-PCR Ct results may be enhanced by adjusting for the β-actin Ct. Such adjustment could be used in studies comparing results of serial testing within subjects or populations, where there is a change in β-actin Ct between specimens. Second, the data support the concern that poor specimen collection may contribute to false-negative results. The concern of false-negative NP SARS-CoV-2 testing has led to the recommendation to retest patients with moderate to high clinical suspicion of COVID-19 <span class="citation">[33,34]</span>. Reporting the β-actin Ct, or a β-actin-adjusted SARS-CoV-2 Ct may allow clinicians to better interpret specimen quality when considering retesting.</p>
 <p>We considered the possibility that the observed relationship between SARS-CoV-2 and β-actin Ct values might be confounded by respiratory disease severity, but we found no significant association between independent markers of severe respiratory disease and lower β-actin Ct values. However, several limitations of our analysis must be acknowledged. <span style="background-color:lightcyan">Measures of disease severity are imprecise,</span> and oxygen saturation data and chest CT radiography reports were only available for a small percentage (32.6% and 8.5%, respectively) of our subjects. Subject demographics and medical comorbidities could not be ascertained for subjects, so unmeasured confounders may contribute to the observed association. <span style="background-color:lightcyan">The impact of comorbid conditions, immune compromise, and duration of illness on the observed relationship are important areas for future study.</span></p>
 <p>Despite our study’s limitations, we believe that the observed association between NP specimen quality and SARS-CoV-2 RT-PCR sensitivity is an important finding. From 1282 NP specimens submitted for SARS-CoV-2 testing, we have quantified the variation in specimen quality measured by β-actin Ct value, and we have defined the impact of the observed variation on test sensitivity and SARS-CoV-2 Ct values. <span style="background-color:lightcyan">The original CDC SARS-CoV-2 assay included a human gene internal control, ribonuclease P (RNAse P). However, most commercial SARS-CoV-2 assays do not include a human gene target. Our findings suggest that caution is required in the clinical interpretation of Ct values from such assays.</span></p>
 <p>SARS-CoV-2 Ct values have shown promise as a means to roughly quantify viral burden and so to guide infection control and public health interventions <span class="citation">[1,2,4–9]</span>. However, variability in NP specimen collection may exert large effects on observed SARS-CoV-2 Ct values, limiting these useful applications. As testing efforts expand, infrastructure to ensure quality sample collection must expand as well <span class="citation">[10]</span>. Concurrent measurement of a β-actin human gene target may provide a means to recognize and adjust for variability in NP specimen quality.</p>
@@ -519,7 +519,7 @@ BJK - study design, data analysis, manuscript</p>
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
 
-#hisvgqmfge .gt_table {
+#wvrlwfgzug .gt_table {
   display: table;
   border-collapse: collapse;
   margin-left: auto;
@@ -544,7 +544,7 @@ BJK - study design, data analysis, manuscript</p>
   border-left-color: #D3D3D3;
 }
 
-#hisvgqmfge .gt_heading {
+#wvrlwfgzug .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -556,7 +556,7 @@ BJK - study design, data analysis, manuscript</p>
   border-right-color: #D3D3D3;
 }
 
-#hisvgqmfge .gt_title {
+#wvrlwfgzug .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -566,7 +566,7 @@ BJK - study design, data analysis, manuscript</p>
   border-bottom-width: 0;
 }
 
-#hisvgqmfge .gt_subtitle {
+#wvrlwfgzug .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -576,13 +576,13 @@ BJK - study design, data analysis, manuscript</p>
   border-top-width: 0;
 }
 
-#hisvgqmfge .gt_bottom_border {
+#wvrlwfgzug .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#hisvgqmfge .gt_col_headings {
+#wvrlwfgzug .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -597,7 +597,7 @@ BJK - study design, data analysis, manuscript</p>
   border-right-color: #D3D3D3;
 }
 
-#hisvgqmfge .gt_col_heading {
+#wvrlwfgzug .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -617,7 +617,7 @@ BJK - study design, data analysis, manuscript</p>
   overflow-x: hidden;
 }
 
-#hisvgqmfge .gt_column_spanner_outer {
+#wvrlwfgzug .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -629,15 +629,15 @@ BJK - study design, data analysis, manuscript</p>
   padding-right: 4px;
 }
 
-#hisvgqmfge .gt_column_spanner_outer:first-child {
+#wvrlwfgzug .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#hisvgqmfge .gt_column_spanner_outer:last-child {
+#wvrlwfgzug .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#hisvgqmfge .gt_column_spanner {
+#wvrlwfgzug .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -649,7 +649,7 @@ BJK - study design, data analysis, manuscript</p>
   width: 100%;
 }
 
-#hisvgqmfge .gt_group_heading {
+#wvrlwfgzug .gt_group_heading {
   padding: 8px;
   color: #333333;
   background-color: #FFFFFF;
@@ -671,7 +671,7 @@ BJK - study design, data analysis, manuscript</p>
   vertical-align: middle;
 }
 
-#hisvgqmfge .gt_empty_group_heading {
+#wvrlwfgzug .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -686,15 +686,15 @@ BJK - study design, data analysis, manuscript</p>
   vertical-align: middle;
 }
 
-#hisvgqmfge .gt_from_md > :first-child {
+#wvrlwfgzug .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#hisvgqmfge .gt_from_md > :last-child {
+#wvrlwfgzug .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#hisvgqmfge .gt_row {
+#wvrlwfgzug .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -713,7 +713,7 @@ BJK - study design, data analysis, manuscript</p>
   overflow-x: hidden;
 }
 
-#hisvgqmfge .gt_stub {
+#wvrlwfgzug .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -725,7 +725,7 @@ BJK - study design, data analysis, manuscript</p>
   padding-left: 12px;
 }
 
-#hisvgqmfge .gt_summary_row {
+#wvrlwfgzug .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -735,7 +735,7 @@ BJK - study design, data analysis, manuscript</p>
   padding-right: 5px;
 }
 
-#hisvgqmfge .gt_first_summary_row {
+#wvrlwfgzug .gt_first_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -745,7 +745,7 @@ BJK - study design, data analysis, manuscript</p>
   border-top-color: #D3D3D3;
 }
 
-#hisvgqmfge .gt_grand_summary_row {
+#wvrlwfgzug .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -755,7 +755,7 @@ BJK - study design, data analysis, manuscript</p>
   padding-right: 5px;
 }
 
-#hisvgqmfge .gt_first_grand_summary_row {
+#wvrlwfgzug .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -765,11 +765,11 @@ BJK - study design, data analysis, manuscript</p>
   border-top-color: #D3D3D3;
 }
 
-#hisvgqmfge .gt_striped {
+#wvrlwfgzug .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#hisvgqmfge .gt_table_body {
+#wvrlwfgzug .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -778,7 +778,7 @@ BJK - study design, data analysis, manuscript</p>
   border-bottom-color: #D3D3D3;
 }
 
-#hisvgqmfge .gt_footnotes {
+#wvrlwfgzug .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: solid;
@@ -792,13 +792,13 @@ BJK - study design, data analysis, manuscript</p>
   border-right-color: #D3D3D3;
 }
 
-#hisvgqmfge .gt_footnote {
+#wvrlwfgzug .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding: 4px;
 }
 
-#hisvgqmfge .gt_sourcenotes {
+#wvrlwfgzug .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: solid;
@@ -812,46 +812,46 @@ BJK - study design, data analysis, manuscript</p>
   border-right-color: #D3D3D3;
 }
 
-#hisvgqmfge .gt_sourcenote {
+#wvrlwfgzug .gt_sourcenote {
   font-size: 90%;
   padding: 4px;
 }
 
-#hisvgqmfge .gt_left {
+#wvrlwfgzug .gt_left {
   text-align: left;
 }
 
-#hisvgqmfge .gt_center {
+#wvrlwfgzug .gt_center {
   text-align: center;
 }
 
-#hisvgqmfge .gt_right {
+#wvrlwfgzug .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#hisvgqmfge .gt_font_normal {
+#wvrlwfgzug .gt_font_normal {
   font-weight: normal;
 }
 
-#hisvgqmfge .gt_font_bold {
+#wvrlwfgzug .gt_font_bold {
   font-weight: bold;
 }
 
-#hisvgqmfge .gt_font_italic {
+#wvrlwfgzug .gt_font_italic {
   font-style: italic;
 }
 
-#hisvgqmfge .gt_super {
+#wvrlwfgzug .gt_super {
   font-size: 65%;
 }
 
-#hisvgqmfge .gt_footnote_marks {
+#wvrlwfgzug .gt_footnote_marks {
   font-style: italic;
   font-size: 65%;
 }
 </style>
-<div id="hisvgqmfge" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;"><table class="gt_table">
+<div id="wvrlwfgzug" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;"><table class="gt_table">
   
   <thead class="gt_col_headings">
     <tr>
@@ -1002,20 +1002,23 @@ BJK - study design, data analysis, manuscript</p>
 <div id="ref-Gabry2019-le">
 <p>28. Gabry J, Simpson D, Vehtari A, Betancourt M, Gelman A. Visualization in bayesian workflow. Journal of the Royal Statistical Society Series A, <strong>2019</strong>; 182:389–402. Available at: <a href="https://onlinelibrary.wiley.com/doi/abs/10.1111/rssa.12378">https://onlinelibrary.wiley.com/doi/abs/10.1111/rssa.12378</a>.</p>
 </div>
+<div id="ref-Gelman2020-sd">
+<p>29. Gelman A, Vehtari A, Simpson D, et al. Bayesian workflow. <strong>2020</strong>; Available at: <a href="http://arxiv.org/abs/2011.01808">http://arxiv.org/abs/2011.01808</a>.</p>
+</div>
 <div id="ref-Rothman2018-jg">
-<p>29. Rothman KJ, Greenland S. Planning study size based on precision rather than power. Epidemiology <strong>2018</strong>; 29:599–603. Available at: <a href="http://dx.doi.org/10.1097/EDE.0000000000000876">http://dx.doi.org/10.1097/EDE.0000000000000876</a>.</p>
+<p>30. Rothman KJ, Greenland S. Planning study size based on precision rather than power. Epidemiology <strong>2018</strong>; 29:599–603. Available at: <a href="http://dx.doi.org/10.1097/EDE.0000000000000876">http://dx.doi.org/10.1097/EDE.0000000000000876</a>.</p>
 </div>
 <div id="ref-Gelman2000-ih">
-<p>30. Gelman A, Tuerlinckx F. Type S error rates for classical and bayesian single and multiple comparison procedures. Computational statistics <strong>2000</strong>; 15:373–390. Available at: <a href="https://doi.org/10.1007/s001800000040">https://doi.org/10.1007/s001800000040</a>.</p>
+<p>31. Gelman A, Tuerlinckx F. Type S error rates for classical and bayesian single and multiple comparison procedures. Computational statistics <strong>2000</strong>; 15:373–390. Available at: <a href="https://doi.org/10.1007/s001800000040">https://doi.org/10.1007/s001800000040</a>.</p>
 </div>
 <div id="ref-Gelman2014-wn">
-<p>31. Gelman A, Carlin J. Beyond power calculations: Assessing type S (sign) and type M (magnitude) errors. Perspectives on psychological science: a journal of the Association for Psychological Science <strong>2014</strong>; 9:641–651. Available at: <a href="http://dx.doi.org/10.1177/1745691614551642">http://dx.doi.org/10.1177/1745691614551642</a>.</p>
+<p>32. Gelman A, Carlin J. Beyond power calculations: Assessing type S (sign) and type M (magnitude) errors. Perspectives on psychological science: a journal of the Association for Psychological Science <strong>2014</strong>; 9:641–651. Available at: <a href="http://dx.doi.org/10.1177/1745691614551642">http://dx.doi.org/10.1177/1745691614551642</a>.</p>
 </div>
 <div id="ref-Gniazdowski2020-gy">
-<p>32. Gniazdowski V, Morris CP, Wohl S, et al. Repeat COVID-19 molecular testing: Correlation of SARS-CoV-2 culture with molecular assays and cycle thresholds. Clinical infectious diseases: an official publication of the Infectious Diseases Society of America <strong>2020</strong>; Available at: <a href="http://dx.doi.org/10.1093/cid/ciaa1616">http://dx.doi.org/10.1093/cid/ciaa1616</a>.</p>
+<p>33. Gniazdowski V, Morris CP, Wohl S, et al. Repeat COVID-19 molecular testing: Correlation of SARS-CoV-2 culture with molecular assays and cycle thresholds. Clinical infectious diseases: an official publication of the Infectious Diseases Society of America <strong>2020</strong>; Available at: <a href="http://dx.doi.org/10.1093/cid/ciaa1616">http://dx.doi.org/10.1093/cid/ciaa1616</a>.</p>
 </div>
 <div id="ref-Hanson2020-gh">
-<p>33. Hanson KE, Caliendo AM, Arias CA, et al. Infectious diseases society of america guidelines on the diagnosis of COVID-19. <strong>2020</strong>; Available at: <a href="https://www.idsociety.org/globalassets/idsa/practice-guidelines/covid-19/diagnostics/idsa-covid-19-guideline_dx_version-1.0.1.pdf">https://www.idsociety.org/globalassets/idsa/practice-guidelines/covid-19/diagnostics/idsa-covid-19-guideline_dx_version-1.0.1.pdf</a>.</p>
+<p>34. Hanson KE, Caliendo AM, Arias CA, et al. Infectious diseases society of america guidelines on the diagnosis of COVID-19. <strong>2020</strong>; Available at: <a href="https://www.idsociety.org/globalassets/idsa/practice-guidelines/covid-19/diagnostics/idsa-covid-19-guideline_dx_version-1.0.1.pdf">https://www.idsociety.org/globalassets/idsa/practice-guidelines/covid-19/diagnostics/idsa-covid-19-guideline_dx_version-1.0.1.pdf</a>.</p>
 </div>
 </div>
 <hr />
@@ -1046,7 +1049,7 @@ BJK - study design, data analysis, manuscript</p>
 ## other attached packages:
 ##  [1] gt_0.2.2        tidybayes_2.3.1 forcats_0.5.1   stringr_1.4.0  
 ##  [5] dplyr_1.0.5     purrr_0.3.4     readr_1.4.0     tidyr_1.1.3    
-##  [9] tibble_3.1.0    ggplot2_3.3.3   tidyverse_1.3.0
+##  [9] tibble_3.1.0    ggplot2_3.3.3   tidyverse_1.3.1
 ## 
 ## loaded via a namespace (and not attached):
 ##  [1] Rcpp_1.0.6           lubridate_1.7.10     lattice_0.20-41     
