@@ -399,7 +399,6 @@ p_logit_scale_brms
 #   ggsave(plot = ., filename = "./figs/p_logit_scale_brms.tiff", height = 3, width = 4, units = "in", dpi = 600)
 
 
-
 # posterior contrast: B-actin Ct increases from 28 to 32
 m_logit_scale_brms$data %>%
   tibble() %>%
