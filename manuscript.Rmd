@@ -30,10 +30,13 @@ Melissa Richard-Greenblatt, PhD (1); Matthew J. Ziegler, MD, MS (2,3); Valerie B
 ## Affiliations  
 1 - Department of Pathology and Laboratory Medicine;   
 2 - Division of Infectious Diseases, Department of Medicine;   
-3 - Department of Biostatistics, Epidemiology, and Informatics, Perelman School of Medicine, University of Pennsylvania, Philadelphia, PA    
+3 - Department of Biostatistics, Epidemiology, and Informatics, Perelman School of Medicine, University of Pennsylvania, Philadelphia, PA, United States    
   
 ## Corresponding Author Contact  
 Brendan J. Kelly, MD, MS - brendank@pennmedicine.upenn.edu  
+423 Guardian Drive  
+Blockley Hall 731  
+Philadelphia, PA, United States  
   
 ## Authors' Contributions  
 MRG - study design, data collection, manuscript;  
@@ -46,8 +49,8 @@ EL - data analysis; manuscript;
 LG - study design, manuscript;  
 BJK - study design, data analysis, manuscript   
     
-## Disclosures  
-The authors report no relevant disclosures.  
+## Potential Conflicts of Interest    
+The authors report no relevant disclosures.   
   
 ## Data Availability  
 Data, analysis scripts, and model code are available at github.com/bjklab.    
@@ -97,8 +100,9 @@ To measure variability in the quality of NP swab collection, we performed amplif
   
 ### Materials and Methods:  
   
-* __Study Design, Setting, and Population__: We performed a retrospective cohort study of adult patients presenting to the PennMedicine health system <span style='background-color:lightcyan'>between March 26 and July 4, 2020</span>. The patient population included drive-through symptomatic, asymptomatic pre-procedure, and hospital inpatient transfer and discharge patients. As the goal of the study was to evaluate the impact of specimen quality on SARS-CoV-2 assay sensitivity, we included only NP specimens processed by a laboratory-developed emergency use authorization (EUA) SARS-CoV-2 assay that included a human gene target (β-actin) as a specimen quality control [@Singanayagam2020-mg; @Smieja2010-op]. No other SARS-CoV-2 assays in the health system included a human gene target. All specimens were assayed for β-actin and MS2 phage RNA in parallel with SARS-CoV-2. We included all SARS-CoV-2 RT-PCR results for which the positive PCR control analyte (MS2 phage RNA) was detected in the target Ct range (20-25 cycles) [@Dreier2005-ye]. A total of 1282 NP specimens were included. A waiver of informed consent was granted by the University of Pennsylvania Institutional Review Board (IRB protocols #843085 & #843274).  
+* __Study Design, Setting, and Population__: We performed a retrospective cohort study of adult patients presenting to the PennMedicine health system <span style='background-color:lightcyan'>between March 26 and July 4, 2020</span>. The patient population included drive-through symptomatic, asymptomatic pre-procedure, and hospital inpatient transfer and discharge patients. As the goal of the study was to evaluate the impact of specimen quality on SARS-CoV-2 assay sensitivity, we included only NP specimens processed by a laboratory-developed emergency use authorization (EUA) SARS-CoV-2 assay that included a human gene target (β-actin) as a specimen quality control [@Singanayagam2020-mg; @Smieja2010-op]. No other SARS-CoV-2 assays in the health system included a human gene target. All specimens were assayed for β-actin and MS2 phage RNA in parallel with SARS-CoV-2. We included all SARS-CoV-2 RT-PCR results for which the positive PCR control analyte (MS2 phage RNA) was detected in the target Ct range (20-25 cycles) [@Dreier2005-ye]. A total of 1282 NP specimens were included.  
   
+* __Patient Consent Statement__: A waiver of informed consent was granted by the University of Pennsylvania Institutional Review Board (IRB protocols #843085 & #843274).     
 * __Causal Models__: We hypothesized that β-actin and SARS-CoV-2 Ct values are related because poor NP specimen collection technique results in reduced capture of NP epithelial cells and SARS-CoV-2 alike. β-actin is a commonly used endogenous reference gene, used as an internal control for PCR reactions involving human specimens. This gene has been previously validated as a marker for the presence of nasal epithelial cells, and prior research has supported its use to assess the quality of self-collected midturbinate swabs [@Singanayagam2020-mg; @Smieja2010-op]. We additionally considered the possibility of confounding by COVID-19 severity of illness because those with more severe infection may have greater NP epithelial cell damage, resulting in greater detection of both PCR targets, irrespective of sampling technique.  
   
 * __Clinical Data Collection__:  To evaluate the possibility of confounding by disease severity, we measured two independent markers of respiratory illness: (1) the minimum room-air oxygen saturation recorded within 2 days of SARS-CoV-2 testing, and (2) whether infiltrates were observed chest computerized tomography (CT) imaging performed within 7 days of SARS-CoV-2 testing. Per Centers for Disease Control and Prevention (CDC) guidelines[@Cdc2020-gb], we considered room-air oxygen saturation < 94% indicative of severe respiratory illness. <span style='background-color:lightcyan'>We chose to use CT imaging rather than x-ray imaging to discriminate findings likely to be related to SARS-CoV-2.</span> Radiology reports for CT imaging that described parenchymal lung disease, including "infiltrates", "pneumonia", "groundglass", or other "opacities", were considered indicative of severe respiratory illness. The presence of lung nodules, lung masses, chronic airway disease including bronchiectasis, emphysematous changes, or pleural effusions in the absence of parenchymal disease as described above, were not considered indicative of severe acute respiratory illness. <span style='background-color:lightcyan'>We chose to include CTs performed within 7 days of SARS-CoV-2 testing to capture disease severity that could plausibly have confounded the relationship between β-actin and SARS-CoV-2 Ct values.</span>     
